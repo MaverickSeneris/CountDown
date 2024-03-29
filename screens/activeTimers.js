@@ -5,7 +5,6 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
 import Header from "../components/shared/header";
 import { Colors } from "../styles/theme/Colors";
 import { useDispatch, useSelector } from "react-redux";
