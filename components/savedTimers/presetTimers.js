@@ -17,8 +17,8 @@ export default function PresetTimers({ item }) {
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.value}>{item.value}</Text>
       </TouchableOpacity>
-      {presetButtons.map((button) => (
-        <Buttons bgColor={button.name === "add" ? Colors.PURPLE : Colors.RED}>
+      {presetButtons.map((button, index) => (
+        <Buttons key={index} bgColor={button.name === "add" ? Colors.PURPLE : Colors.RED}>
           <MaterialIcons name={button.icon} color={Colors.LIGHT} size={23}/>
         </Buttons>
       ))}
