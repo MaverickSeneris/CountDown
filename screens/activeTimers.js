@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.DARK,
   },
   activeTimers: {
+    flex: 1,
     marginTop: 40,
     marginHorizontal: 20,
   },

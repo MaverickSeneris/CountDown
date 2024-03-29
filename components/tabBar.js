@@ -60,12 +60,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: Colors.DARK_GRAY,
     borderRadius: 50,
-    marginVertical: 30,
+    marginTop: 0,
+    marginBottom: 20,
     marginHorizontal: 20,
     justifyContent: "center",
     alignItems: "center",
     width: 270,
     height: 80,
+    position: "absolute",
+    bottom: 7
   },
   tabIcons: {
     flex: 1,

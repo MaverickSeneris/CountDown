@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         marginTop: 70,
         marginHorizontal: 20,
         flexDirection: 'row',
-        gap: 10
+        gap: 10,
     },
     headerText:{
         color: Colors.LIGHT,
