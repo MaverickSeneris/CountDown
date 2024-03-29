@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Colors } from '../styles/theme/Colors'
+import { Colors } from '../../styles/theme/Colors'
 import Icons from './Icons'
 
 
