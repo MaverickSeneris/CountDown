@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Header from "../components/shared/header";
 import { Colors } from "../styles/theme/Colors";
 import seedData from "../seedData";
 import PresetTimers from "../components/savedTimers/presetTimers";
-import { useDispatch, useSelector } from 'react-redux';
-import { addActiveTimer } from '../redux/actions';
+import { useDispatch, useSelector } from "react-redux";
+import { addActiveTimer } from "../redux/actions";
 
 export default function SavedTimers() {
   const dispatch = useDispatch();
@@ -22,9 +22,7 @@ export default function SavedTimers() {
       <View style={styles.presetTimerContainer}>
         <FlatList
           data={savedTimers}
-          renderItem={({ item }) => (
-           <PresetTimers item={item}/>
-          )}
+          renderItem={({ item }) => <PresetTimers item={item} />}
         />
       </View>
     </View>
@@ -32,14 +30,13 @@ export default function SavedTimers() {
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     backgroundColor: Colors.DARK,
-},
-presetTimerContainer:{
-  flex: 1,
-  marginTop: 40,
-  marginHorizontal: 20
-}
+  },
+  presetTimerContainer: {
+    flex: 1,
+    marginTop: 40,
+    marginHorizontal: 20,
+  },
 });
- 
