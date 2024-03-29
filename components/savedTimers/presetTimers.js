@@ -3,6 +3,8 @@ import React from "react";
 import { Colors } from "../../styles/theme/Colors";
 
 export default function PresetTimers({ item }) {
+
+
   return (
     <TouchableOpacity style={styles.container}>
       <Text style={styles.name}>{item.name}</Text>

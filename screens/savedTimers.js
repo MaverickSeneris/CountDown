@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, View, FlatList } from "react-native";
+import React from "react";
 import Header from "../components/shared/header";
 import { Colors } from "../styles/theme/Colors";
 import seedData from "../seedData";
 import PresetTimers from "../components/savedTimers/presetTimers";
 import { useDispatch, useSelector } from "react-redux";
-import { addActiveTimer } from "../redux/actions";
+
 
 export default function SavedTimers() {
   const dispatch = useDispatch();
