@@ -7,29 +7,33 @@ import Buttons from "../shared/buttons";
 
 export default function PresetTimers({ item }) {
   const presetButtons = [
-    { name: "add", icon: "add-alarm", bgColor: Colors.PURPLE },
-    { name: "delete", icon: "delete", bgColor: Colors.RED },
+    { name: "add", icon: "add-alarm"},
+    { name: "delete", icon: "delete"},
   ];
 
   return (
-    <View style={styles.presetTimerContent}>
-      <TouchableOpacity style={styles.container}>
+    <View style={styles.presetTimers}>
+      <TouchableOpacity style={styles.presetName}>
         <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.value}>{item.value}</Text>
       </TouchableOpacity>
+      <View style={styles.presetTimerContent}>
+      <Text style={styles.value}>{item.value}</Text>
       {presetButtons.map((button, index) => (
         <Buttons key={index} bgColor={button.name === "add" ? Colors.PURPLE : Colors.RED}>
           <MaterialIcons name={button.icon} color={Colors.LIGHT} size={23}/>
         </Buttons>
       ))}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginBottom: 5,
+  presetTimers:{
+    marginBottom: 12
+  },
+  presetName: {
+    marginBottom: -8,
   },
   presetTimerContent: {
     flexDirection: "row",
@@ -44,5 +48,6 @@ const styles = StyleSheet.create({
     fontSize: 55,
     fontFamily: "Light",
     color: Colors.LIGHT,
+    marginRight: "auto"
   },
 });

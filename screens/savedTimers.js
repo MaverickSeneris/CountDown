@@ -1,15 +1,20 @@
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
 import React from "react";
 import Header from "../components/shared/header";
 import { Colors } from "../styles/theme/Colors";
-import seedData from "../seedData";
 import PresetTimers from "../components/savedTimers/presetTimers";
 import { useDispatch, useSelector } from "react-redux";
-
+import Buttons from "../components/shared/buttons";
+import { MaterialIcons } from "@expo/vector-icons";
+import ButtonLarge from "../components/shared/buttonLrg";
 
 export default function SavedTimers() {
   const dispatch = useDispatch();
   const savedTimers = useSelector((state) => state.rootReducer.savedTimers);
+
+  const handleSelectTimer = (timer) => {
+    dispatch(addActiveTimer(timer));
+  };
 
   return (
     <View style={styles.container}>
@@ -25,6 +30,11 @@ export default function SavedTimers() {
           renderItem={({ item }) => <PresetTimers item={item} />}
         />
       </View>
+      <View style={styles.addButtonContainer}>
+        <ButtonLarge bgColor={Colors.RED}>
+          <MaterialIcons name="add" size={50} color={Colors.LIGHT} />
+        </ButtonLarge>
+      </View>
     </View>
   );
 }
@@ -38,5 +48,10 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 40,
     marginHorizontal: 20,
+  },
+  addButtonContainer: {
+    position: "absolute",
+    bottom: 27,
+    right: 18,
   },
 });

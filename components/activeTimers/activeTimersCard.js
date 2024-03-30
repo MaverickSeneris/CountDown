@@ -55,6 +55,6 @@ const styles = StyleSheet.create({
     fontFamily: "Light",
     fontSize: 64,
     color: Colors.LIGHT,
-    marginRight: 'auto'
+    marginRight: "auto",
   },
 });
