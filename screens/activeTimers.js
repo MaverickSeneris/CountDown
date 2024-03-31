@@ -4,7 +4,6 @@ import { Colors } from "../styles/theme/Colors";
 import { useSelector } from "react-redux";
 
 import ActiveTimersCard from "../components/activeTimers/activeTimersCard";
-
 export default function ActiveTimers() {
   const activeTimers = useSelector((state) => state.rootReducer.activeTimers);
 
