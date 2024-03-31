@@ -1,9 +1,9 @@
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-export default function Buttons({children, bgColor, onAddPress, add}) {
+export default function Buttons({children, bgColor, onAddPress, onDeletePress, add}) {
   return (
-    <TouchableOpacity onPress={add === "add" ? onAddPress : null } style={[styles.button,{backgroundColor: bgColor}]}>
+    <TouchableOpacity onPress={add === "add" ? onAddPress : onDeletePress } style={[styles.button,{backgroundColor: bgColor}]}>
       {children}
     </TouchableOpacity>
   )

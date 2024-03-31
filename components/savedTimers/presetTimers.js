@@ -3,14 +3,21 @@ import React from "react";
 import { Colors } from "../../styles/theme/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import Buttons from "../shared/buttons";
+import { useDispatch } from "react-redux";
 
-export default function PresetTimers({ item, handleSelectTimer }) {
+
+
+export default function PresetTimers({ item, handleSelectTimer, deleteSavedTimer }) {
+  const dispatch = useDispatch();
   const presetButtons = [
     { name: "add", icon: "add-alarm" },
     { name: "delete", icon: "delete" },
   ];
 
   const onAddPress =()=> handleSelectTimer(item.key)
+  const handleDeleteSavedTimer = () => {
+    dispatch(deleteSavedTimer(item.key));
+  };
 
   return (
     <View style={styles.presetTimers}>
@@ -25,6 +32,7 @@ export default function PresetTimers({ item, handleSelectTimer }) {
             bgColor={button.name === "add" ? Colors.PURPLE : Colors.RED}
             add={button.name}
             onAddPress={onAddPress}
+            onDeletePress={handleDeleteSavedTimer}
           >
             <MaterialIcons name={button.icon} color={Colors.LIGHT} size={23} />
           </Buttons>
