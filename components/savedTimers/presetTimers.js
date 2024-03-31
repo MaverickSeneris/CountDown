@@ -29,7 +29,7 @@ export default function PresetTimers({ item, handleSelectTimer }) {
           <Buttons
             key={index}
             bgColor={button.name === "add" ? Colors.PURPLE : Colors.RED}
-            add={button.name}
+            event={button.name}
             onAddPress={onAddPress}
             onDeletePress={handleDeleteSavedTimer}
           >
