@@ -26,8 +26,8 @@ export default ActiveTimersCard = ({ item }) => {
   const [totalSeconds, setTotalSeconds] = useState(
     timeStringToSeconds(item.value)
   );
-  const [isRunning, setIsRunning] = useState(false); 
-  const timerInterval = useRef(null); 
+  const [isRunning, setIsRunning] = useState(false);
+  const timerInterval = useRef(null);
 
   const buttons = [
     !isRunning ? { name: "play" } : { name: "pause" },
@@ -44,8 +44,8 @@ export default ActiveTimersCard = ({ item }) => {
           if (prevSeconds <= 0) {
             clearInterval(timerInterval.current);
             setIsRunning(false);
-            console.log("Timer has elapsed, resetting");
-            return timeStringToSeconds(item.value); 
+            console.log(`${item.name} has elapsed, resetting`);
+            return timeStringToSeconds(item.value);
           }
           return prevSeconds - 1;
         });
@@ -57,7 +57,6 @@ export default ActiveTimersCard = ({ item }) => {
     return () => clearInterval(timerInterval.current);
   }, [isRunning]);
 
-
   useEffect(() => {
     if (!isRunning) {
       console.log("Resetting totalSeconds");
@@ -67,14 +66,16 @@ export default ActiveTimersCard = ({ item }) => {
 
   const handlePlayPause = () => {
     setIsRunning((prevState) => {
-      console.log("Toggling isRunning");
+      prevState
+        ? console.log(item.name, "timer is paused")
+        : console.log(item.name, "timer is running");
       return !prevState;
     });
   };
 
   const handleStop = () => {
     setIsRunning(false);
-    console.log("Stopping timer and resetting");
+    console.log(item.name, "stopping timer and resetting");
     setTotalSeconds(timeStringToSeconds(item.value));
   };
 
@@ -101,14 +102,18 @@ export default ActiveTimersCard = ({ item }) => {
             key={index}
             bgColor={
               button.name === "play"
-                ? isRunning ? Colors.DARK_GRAY : Colors.PURPLE
+                ? isRunning
+                  ? Colors.DARK_GRAY
+                  : Colors.PURPLE
                 : button.name === "pause"
-                ? isRunning ? Colors.DARK_GRAY : Colors.GRAY
+                ? isRunning
+                  ? Colors.DARK_GRAY
+                  : Colors.GRAY
                 : Colors.RED
             }
             event={button.name}
             handlePlayPause={handlePlayPause}
-            handleStop={handleStop} 
+            handleStop={handleStop}
           >
             <MaterialCommunityIcons
               name={button.name}
