@@ -1,10 +1,21 @@
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-export default function Buttons({ children, bgColor, onAddPress, onDeletePress, event }) {
+export default function Buttons({ children, bgColor, onAddPress, onDeletePress, handlePlayPause, handleStop, event }) {
   const handlePress = () => {
-    if (event === "add") return onAddPress();
-    if (event === "delete") return onDeletePress();
+    switch (event) {
+      case "add":
+        return onAddPress();
+      case "delete":
+        return onDeletePress();
+      case "play":
+      case "pause":
+        return handlePlayPause();
+      case "stop":
+        return handleStop();
+      default:
+        return;
+    }
   };
   
   return (

@@ -2,8 +2,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Colors } from "../../styles/theme/Colors";
 
-export default function Card({ children }) {
-  return <TouchableOpacity style={styles.card}>{children}</TouchableOpacity>;
+export default function Card({ children, backgroundColor }) {
+  return <TouchableOpacity style={[styles.card, { backgroundColor: backgroundColor }]}>{children}</TouchableOpacity>;
 }
 
 const styles = StyleSheet.create({
@@ -11,6 +11,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.DARK_GRAY,
     borderRadius: 10,
     padding: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
 });
