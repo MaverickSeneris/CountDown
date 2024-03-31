@@ -15,7 +15,7 @@ export default function SavedTimers() {
   const handleSelectTimer = (timerKey) => {
     const selectedTimer = savedTimers.find((timer) => timer.key === timerKey);
     dispatch(addToActiveTimer(selectedTimer));
-    console.log("Selected timer:", selectedTimer);
+    console.log(`${selectedTimer.name} has been added to active sreen:`);
   };
 
   return (
