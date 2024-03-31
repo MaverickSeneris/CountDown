@@ -2,12 +2,14 @@ import { StyleSheet, View, FlatList } from "react-native";
 import Header from "../components/shared/header";
 import { Colors } from "../styles/theme/Colors";
 import { useDispatch, useSelector } from "react-redux";
+import useTimerLogic from "../utils/useTimerLogic";
+
 
 import ActiveTimersCard from "../components/activeTimers/activeTimersCard";
 
 export default function ActiveTimers() {
   const activeTimers = useSelector((state) => state.rootReducer.activeTimers);
-
+  
   return (
     <View style={styles.container}>
       <Header

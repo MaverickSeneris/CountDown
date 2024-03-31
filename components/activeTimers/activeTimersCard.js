@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
 import React from "react";
 import Card from "../shared/card";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -21,8 +21,9 @@ export default function ActiveTimersCard({ item }) {
       </View>
       <View style={styles.bottomContent}>
         <Text style={styles.value}>{item.value}</Text>
-        {buttons.map((button) => (
+        {buttons.map((button, index) => (
           <Buttons
+            key={index}
             bgColor={button.name === "play" ? Colors.PURPLE : Colors.RED}
           >
             <MaterialCommunityIcons
