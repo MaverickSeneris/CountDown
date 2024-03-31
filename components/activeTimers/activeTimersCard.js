@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Card from "../shared/card";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "../../styles/theme/Colors";
@@ -8,7 +8,6 @@ import { deleteActiveTimer } from "../../redux/actions/actions";
 import { useDispatch } from "react-redux";
 
 const timeStringToSeconds = (timeString) => {
-  
   const [hours, minutes, seconds] = timeString.split(":").map(Number);
   return hours * 3600 + minutes * 60 + seconds;
 };
@@ -24,48 +23,47 @@ const secondsToTimeString = (totalSeconds) => {
 };
 
 export default ActiveTimersCard = ({ item }) => {
-
-  const dispatch = useDispatch();
-
   const [totalSeconds, setTotalSeconds] = useState(
     timeStringToSeconds(item.value)
   );
-  const [isRunning, setIsRunning] = useState(false);
+  const [isRunning, setIsRunning] = useState(false); 
+  const timerInterval = useRef(null); 
+
   const buttons = [
     !isRunning ? { name: "play" } : { name: "pause" },
     { name: "stop" },
   ];
 
-  useEffect(() => {
-    let interval;
+  const dispatch = useDispatch();
 
+  useEffect(() => {
     if (isRunning) {
-      interval = setInterval(() => {
+      timerInterval.current = setInterval(() => {
         console.log("Decrementing totalSeconds");
         setTotalSeconds((prevSeconds) => {
           if (prevSeconds <= 0) {
-            clearInterval(interval);
+            clearInterval(timerInterval.current);
             setIsRunning(false);
             console.log("Timer has elapsed, resetting");
-            return timeStringToSeconds(item.value); // Reset timer to initial value when it elapses
+            return timeStringToSeconds(item.value); 
           }
-          console.log("Previous totalSeconds:", prevSeconds);
           return prevSeconds - 1;
         });
       }, 1000);
     } else {
-      clearInterval(interval); // Clear interval when not running
+      clearInterval(timerInterval.current);
     }
 
-    return () => clearInterval(interval); // Cleanup on component unmount
-  }, [isRunning, item]);
+    return () => clearInterval(timerInterval.current);
+  }, [isRunning]);
+
 
   useEffect(() => {
     if (!isRunning) {
       console.log("Resetting totalSeconds");
-      setTotalSeconds(timeStringToSeconds(item.value)); // Reset timer when item value changes
+      setTotalSeconds(timeStringToSeconds(item.value));
     }
-  }, [item, isRunning]);
+  }, [item]);
 
   const handlePlayPause = () => {
     setIsRunning((prevState) => {
@@ -74,11 +72,10 @@ export default ActiveTimersCard = ({ item }) => {
     });
   };
 
-  
   const handleStop = () => {
     setIsRunning(false);
     console.log("Stopping timer and resetting");
-    setTotalSeconds(timeStringToSeconds(item.value)); // Reset timer to initial value
+    setTotalSeconds(timeStringToSeconds(item.value));
   };
 
   const handleDeleteActiveTimer = () => {
@@ -107,17 +104,15 @@ export default ActiveTimersCard = ({ item }) => {
                 ? isRunning ? Colors.DARK_GRAY : Colors.PURPLE
                 : button.name === "pause"
                 ? isRunning ? Colors.DARK_GRAY : Colors.GRAY
-                : button.name === "stop"
-                ? Colors.RED
-                : Colors.GRAY
+                : Colors.RED
             }
             event={button.name}
             handlePlayPause={handlePlayPause}
-            handleStop={handleStop}
+            handleStop={handleStop} 
           >
             <MaterialCommunityIcons
               name={button.name}
-              size={35}
+              size={30}
               color={Colors.LIGHT}
             />
           </Buttons>
