@@ -6,24 +6,16 @@ import PresetTimers from "../components/savedTimers/presetTimers";
 import { useDispatch, useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import ButtonLarge from "../components/shared/buttonLrg";
-import {
-  addToActiveTimer,
-  deleteSavedTimer,
-  deleteActiveTimer,
-} from "../redux/actions/actions";
+import { addToActiveTimer } from "../redux/actions/actions";
 
 export default function SavedTimers() {
   const dispatch = useDispatch();
   const savedTimers = useSelector((state) => state.rootReducer.savedTimers);
-  
+
   const handleSelectTimer = (timerKey) => {
     const selectedTimer = savedTimers.find((timer) => timer.key === timerKey);
     dispatch(addToActiveTimer(selectedTimer));
     console.log(`${selectedTimer.name} has been added to active sreen:`);
-  };
-
-  const handleDeleteSavedTimer = () => {
-    dispatch(deleteSavedTimer(item.key));
   };
 
   return (
@@ -38,11 +30,7 @@ export default function SavedTimers() {
         <FlatList
           data={savedTimers}
           renderItem={({ item }) => (
-            <PresetTimers
-              item={item}
-              handleSelectTimer={handleSelectTimer}
-              deleteSavedTimer={deleteSavedTimer}
-            />
+            <PresetTimers item={item} handleSelectTimer={handleSelectTimer} />
           )}
         />
       </View>

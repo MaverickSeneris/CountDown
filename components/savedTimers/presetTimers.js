@@ -4,17 +4,16 @@ import { Colors } from "../../styles/theme/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import Buttons from "../shared/buttons";
 import { useDispatch } from "react-redux";
+import { deleteSavedTimer } from "../../redux/actions/actions";
 
-
-
-export default function PresetTimers({ item, handleSelectTimer, deleteSavedTimer }) {
+export default function PresetTimers({ item, handleSelectTimer }) {
   const dispatch = useDispatch();
   const presetButtons = [
     { name: "add", icon: "add-alarm" },
     { name: "delete", icon: "delete" },
   ];
 
-  const onAddPress =()=> handleSelectTimer(item.key)
+  const onAddPress = () => handleSelectTimer(item.key);
   const handleDeleteSavedTimer = () => {
     dispatch(deleteSavedTimer(item.key));
   };

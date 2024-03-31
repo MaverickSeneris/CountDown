@@ -4,14 +4,23 @@ import Card from "../shared/card";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "../../styles/theme/Colors";
 import Buttons from "../shared/buttons";
+import { deleteActiveTimer } from "../../redux/actions/actions";
+import { useDispatch} from "react-redux";
 
-export default function ActiveTimersCard({ item }) {
+
+export default function ActiveTimersCard({ item}) {
   const buttons = [{ name: "play" }, { name: "stop" }];
+  const dispatch = useDispatch();
+
+  const handleDeleteActiveTimer = () => {
+    dispatch(deleteActiveTimer(item.key));
+  };
+
   return (
     <Card>
       <View style={styles.topContent}>
         <Text style={styles.name}>{item.name}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>handleDeleteActiveTimer(item.key)}>
           <MaterialCommunityIcons
             name="close-circle-outline"
             color={Colors.LIGHT}
