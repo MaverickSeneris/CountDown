@@ -1,5 +1,12 @@
-import { StyleSheet, View, FlatList } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Modal,
+  Text,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState } from "react";
 import Header from "../components/shared/header";
 import { Colors } from "../styles/theme/Colors";
 import PresetTimers from "../components/savedTimers/presetTimers";
@@ -7,8 +14,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import ButtonLarge from "../components/shared/buttonLrg";
 import { addToActiveTimer } from "../redux/actions/actions";
+import MaterialCommunityIcons from "@expo/vector-icons";
+import SavedTimerModal from "../components/savedTimers/savedTimerModal";
 
 export default function SavedTimers() {
+  const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
   const savedTimers = useSelector((state) => state.rootReducer.savedTimers);
 
@@ -16,6 +26,10 @@ export default function SavedTimers() {
     const selectedTimer = savedTimers.find((timer) => timer.key === timerKey);
     dispatch(addToActiveTimer(selectedTimer));
     console.log(`${selectedTimer.name} has been added to active sreen:`);
+  };
+
+  const modalToggler = () => {
+    setModal(!modal);
   };
 
   return (
@@ -26,6 +40,11 @@ export default function SavedTimers() {
         icnBgColor={Colors.LIGHT}
         icnColor={Colors.DARK}
       />
+
+      <Modal style={styles.modalContent} visible={modal} animationType="slide">
+        <SavedTimerModal modalToggler={modalToggler}/>
+      </Modal>
+
       <View style={styles.presetTimerContainer}>
         <FlatList
           data={savedTimers}
@@ -35,7 +54,7 @@ export default function SavedTimers() {
         />
       </View>
       <View style={styles.addButtonContainer}>
-        <ButtonLarge bgColor={Colors.RED}>
+        <ButtonLarge bgColor={Colors.RED} modalToggler={modalToggler}>
           <MaterialIcons name="add" size={50} color={Colors.LIGHT} />
         </ButtonLarge>
       </View>
@@ -47,6 +66,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.DARK,
+  },
+  modalContent: {
+    flex: 1,
   },
   presetTimerContainer: {
     flex: 1,
