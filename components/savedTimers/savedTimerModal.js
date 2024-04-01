@@ -5,12 +5,13 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React from "react";
-import MaterialCommunityIcons from "@expo/vector-icons";
+import React, { useState } from "react";
 import { Colors } from "../../styles/theme/Colors";
 import Header from "../shared/header";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function SavedTimerModal({ modalToggler }) {
+  const [countdown, setCountdown] = useState(new Date());
   return (
     <View style={styles.content}>
       <TouchableOpacity onPress={modalToggler}>
@@ -23,8 +24,15 @@ export default function SavedTimerModal({ modalToggler }) {
         icnColor={Colors.LIGHT}
       />
       <View style={styles.inputContent}>
-        <TextInput placeholder="Title" style={styles.input} placeholderTextColor={Colors.DARK_GRAY} pla />
+        <TextInput
+          placeholder="Title"
+          style={styles.input}
+          placeholderTextColor={Colors.DARK_GRAY}
+          pla
+        />
       </View>
+
+      <DateTimePicker textColor={Colors.LIGHT} mode="countdown" value={countdown} display="spinner" />
     </View>
   );
 }
@@ -42,16 +50,16 @@ const styles = StyleSheet.create({
     color: Colors.LIGHT,
     fontSize: 50,
   },
-  inputContent:{
+  inputContent: {
     marginTop: 10,
     marginHorizontal: 20,
     borderBottomColor: Colors.DARK_GRAY,
     borderBottomWidth: 2,
-    paddingVertical: 10
+    paddingVertical: 10,
   },
-  input:{
+  input: {
     fontSize: 36,
     color: Colors.LIGHT,
-    fontFamily: 'Regular'
-  }
+    fontFamily: "Regular",
+  },
 });
