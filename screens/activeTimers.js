@@ -14,6 +14,7 @@ export default function ActiveTimers() {
         logoName={"timer-outline"}
         icnBgColor={Colors.PURPLE}
         icnColor={Colors.LIGHT}
+        icon={true}
       />
       <View style={styles.activeTimers}>
         <FlatList

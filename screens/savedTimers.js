@@ -39,6 +39,7 @@ export default function SavedTimers() {
         logoName={"content-save-outline"}
         icnBgColor={Colors.LIGHT}
         icnColor={Colors.DARK}
+        icon={true}
       />
 
       <Modal style={styles.modalContent} visible={modal} animationType="slide">

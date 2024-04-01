@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+} from "react-native";
 import { Colors } from "../styles/theme/Colors";
 
 export const CustomTabBar = ({ state, descriptors, navigation }) => {
@@ -44,7 +50,12 @@ export const CustomTabBar = ({ state, descriptors, navigation }) => {
               size: isFocused ? 100 : 40,
             })}
             {isFocused && (
-              <Text style={[ styles.tabText,{ color: isFocused ? Colors.DARK : Colors.DARK }]}>
+              <Text
+                style={[
+                  styles.tabText,
+                  { color: isFocused ? Colors.DARK : Colors.DARK },
+                ]}
+              >
                 {route.name}
               </Text>
             )}
@@ -58,7 +69,7 @@ export const CustomTabBar = ({ state, descriptors, navigation }) => {
 const styles = StyleSheet.create({
   tabBarContainer: {
     flexDirection: "row",
-    backgroundColor: Colors.PURPLE,
+    backgroundColor: Colors.DARK_GRAY,
     borderRadius: 50,
     marginTop: 0,
     marginBottom: 20,
@@ -68,7 +79,9 @@ const styles = StyleSheet.create({
     width: 260,
     height: 80,
     position: "absolute",
-    bottom: 7
+    bottom: 7,
+    borderColor: Colors.LIGHT_GRAY,
+    borderWidth: 2
   },
   tabIcons: {
     flex: 1,
@@ -78,11 +91,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginHorizontal: 7,
     paddingVertical: 7,
-    height: 70
+    height: 70,
   },
-  tabText:{
-    fontFamily: 'Solid',
+  tabText: {
+    fontFamily: "Solid",
     fontSize: 18,
-    width: 50
-  }
+    width: 50,
+  },
 });

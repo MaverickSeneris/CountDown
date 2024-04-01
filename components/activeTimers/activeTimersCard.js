@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import Card from "../shared/card";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -6,6 +6,8 @@ import { Colors } from "../../styles/theme/Colors";
 import Buttons from "../shared/buttons";
 import { deleteActiveTimer } from "../../redux/actions/actions";
 import { useDispatch } from "react-redux";
+import Header from "../shared/header";
+import ActiveTimersDetail from "./activeTimersDetail";
 
 const timeStringToSeconds = (timeString) => {
   const [hours, minutes, seconds] = timeString.split(":").map(Number);
@@ -23,6 +25,7 @@ const secondsToTimeString = (totalSeconds) => {
 };
 
 export default ActiveTimersCard = ({ item }) => {
+  const [modal, setModal] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState(
     timeStringToSeconds(item.value)
   );
@@ -83,8 +86,16 @@ export default ActiveTimersCard = ({ item }) => {
     dispatch(deleteActiveTimer(item.key));
   };
 
+  const modalToggler = () => {
+    setModal(!modal);
+  };
+
   return (
-    <Card backgroundColor={isRunning ? Colors.PURPLE : Colors.DARK_GRAY}>
+    <Card
+      backgroundColor={isRunning ? Colors.PURPLE : Colors.DARK_GRAY}
+      modalToggler={modalToggler}
+      modal={true}
+    >
       <View style={styles.topContent}>
         <Text style={styles.name}>{item.name}</Text>
         <TouchableOpacity onPress={handleDeleteActiveTimer}>
@@ -123,6 +134,17 @@ export default ActiveTimersCard = ({ item }) => {
           </Buttons>
         ))}
       </View>
+      <Modal style={styles.modalContent} visible={modal} animationType="slide">
+        <ActiveTimersDetail
+          item={item}
+          modalToggler={modalToggler}
+          secondsToTimeString={secondsToTimeString}
+          totalSeconds={totalSeconds}
+          isRunning={isRunning}
+          handlePlayPause={handlePlayPause}
+          handleStop={handleStop}
+        />
+      </Modal>
     </Card>
   );
 };
@@ -146,5 +168,9 @@ const styles = StyleSheet.create({
     fontSize: 64,
     color: Colors.LIGHT,
     marginRight: "auto",
+  },
+  modal: {
+    flex: 1,
+    backgroundColor: Colors.DARK,
   },
 });

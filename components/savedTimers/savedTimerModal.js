@@ -12,6 +12,9 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function SavedTimerModal({ modalToggler }) {
   const [countdown, setCountdown] = useState(new Date());
+  
+  
+
   return (
     <View style={styles.content}>
       <TouchableOpacity onPress={modalToggler}>
@@ -22,6 +25,7 @@ export default function SavedTimerModal({ modalToggler }) {
         logoName={"alarm-plus"}
         icnBgColor={Colors.RED}
         icnColor={Colors.LIGHT}
+        icon={true}
       />
       <View style={styles.inputContent}>
         <TextInput

@@ -20,11 +20,13 @@ export default function PresetTimers({ item, handleSelectTimer }) {
 
   return (
     <View style={styles.presetTimers}>
-      <TouchableOpacity style={styles.presetName}>
+      <View style={styles.presetName}>
         <Text style={styles.name}>{item.name}</Text>
-      </TouchableOpacity>
+      </View>
       <View style={styles.presetTimerContent}>
-        <Text style={styles.value}>{item.value}</Text>
+        <TouchableOpacity style={styles.valueContent}>
+          <Text style={styles.value}>{item.value}</Text>
+        </TouchableOpacity>
         {presetButtons.map((button, index) => (
           <Buttons
             key={index}
@@ -57,10 +59,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "Regular",
   },
+  valueContent: {
+    marginRight: "auto",
+  },
   value: {
     fontSize: 55,
     fontFamily: "Light",
     color: Colors.LIGHT,
-    marginRight: "auto",
   },
 });
