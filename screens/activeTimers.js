@@ -30,10 +30,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.DARK,
+
   },
   activeTimers: {
     flex: 1,
     marginTop: 40,
     marginHorizontal: 20,
+   
   },
 });
