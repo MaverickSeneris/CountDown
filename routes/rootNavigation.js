@@ -42,6 +42,7 @@ export default function App() {
             tabBarLabel: () => null,
           }}
         />
+        {(props) => <ActiveTimers {...props} navigation={props.navigation} />}
       </Tab.Navigator>
     </NavigationContainer>
   );
