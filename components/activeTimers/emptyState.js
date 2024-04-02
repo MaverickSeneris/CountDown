@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "../../styles/theme/Colors";
-import Card from "../shared/card";
+
 
 export default function EmptyState({ navigation }) {
   const handleNavigateToCreateTimer = () => {
@@ -10,6 +10,7 @@ export default function EmptyState({ navigation }) {
   };
 
   return (
+    // Todo: Make this as a reusable component
     <View style={styles.container}>
       <MaterialCommunityIcons
         name="timer-off-outline"
