@@ -4,7 +4,7 @@ import { Colors } from "../styles/theme/Colors";
 import { useSelector } from "react-redux";
 
 import ActiveTimersCard from "../components/activeTimers/activeTimersCard";
-import EmptyState from "../components/activeTimers/emptyState";
+import EmptyState from "../components/shared/emptyState";
 export default function ActiveTimers({navigation}) {
   const activeTimers = useSelector((state) => state.rootReducer.activeTimers);
 
@@ -17,7 +17,7 @@ export default function ActiveTimers({navigation}) {
         icnColor={Colors.LIGHT}
         icon={true}
       />
-     {activeTimers >= 0 ? <EmptyState navigation={navigation}/> : <View style={styles.activeTimers}>
+     {activeTimers >= 0 ? <EmptyState screen={"activeTimers"} screenMessage={"No active timers"} navigation={navigation}/> : <View style={styles.activeTimers}>
         <FlatList
           data={activeTimers}
           renderItem={({ item }) => <ActiveTimersCard item={item} />}

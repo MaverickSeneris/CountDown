@@ -3,8 +3,7 @@ import {
   View,
   FlatList,
   Modal,
-  Text,
-  TouchableOpacity,
+  Text
 } from "react-native";
 import React, { useState } from "react";
 import Header from "../components/shared/header";
@@ -14,8 +13,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import ButtonLarge from "../components/shared/buttonLrg";
 import { addToActiveTimer } from "../redux/actions/actions";
-import MaterialCommunityIcons from "@expo/vector-icons";
 import SavedTimerModal from "../components/savedTimers/savedTimerModal";
+import EmptyState from "../components/shared/emptyState";
+
 
 export default function SavedTimers() {
   const [modal, setModal] = useState(false);
@@ -47,12 +47,12 @@ export default function SavedTimers() {
       </Modal>
 
       <View style={styles.presetTimerContainer}>
-        <FlatList
+        {savedTimers >= 0 ?  <EmptyState screen={"savedTimers"} screenMessage={"No saved timers"}/> : <FlatList
           data={savedTimers}
           renderItem={({ item }) => (
             <PresetTimers item={item} handleSelectTimer={handleSelectTimer} />
           )}
-        />
+        />}
       </View>
       <View style={styles.addButtonContainer}>
         <ButtonLarge bgColor={Colors.RED} modalToggler={modalToggler}>

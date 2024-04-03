@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "../../styles/theme/Colors";
 
 
-export default function EmptyState({ navigation }) {
+export default function EmptyState({ navigation, screenMessage, screen }) {
   const handleNavigateToCreateTimer = () => {
     navigation.navigate("Your Timers"); // Replace "CreateTimerScreen" with the name of the screen you want to navigate to
   };
@@ -17,11 +17,11 @@ export default function EmptyState({ navigation }) {
         size={300}
         color={Colors.DARK_GRAY}
       />
-      <Text style={styles.text}>No active timers </Text>
+      <Text style={styles.text}>{screenMessage}</Text>
 
-      <TouchableOpacity onPress={handleNavigateToCreateTimer}>
+      {screen === "activeTimers" && <TouchableOpacity onPress={handleNavigateToCreateTimer}>
         <Text style={styles.addTimerNav}>+ select a timer</Text>
-      </TouchableOpacity>
+      </TouchableOpacity>}
     </View>
   );
 }
