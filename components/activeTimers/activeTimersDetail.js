@@ -4,6 +4,7 @@ import { Colors } from "../../styles/theme/Colors";
 import Header from "../shared/header";
 import Buttons from "../shared/buttons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { generateButtonControls } from "../../configs/ButtonConfigs";
 
 export default function ActiveTimersDetail({
   item,
@@ -14,10 +15,8 @@ export default function ActiveTimersDetail({
   handlePlayPause,
   handleStop,
 }) {
-  const buttons = [
-    !isRunning ? { name: "play" } : { name: "pause" },
-    { name: "stop" },
-  ];
+  
+  const buttonControls = generateButtonControls(isRunning);
 
   return (
     <View
@@ -36,7 +35,7 @@ export default function ActiveTimersDetail({
         <Text style={styles.value}>{secondsToTimeString(totalSeconds)}</Text>
       </View>
       <View style={styles.buttonContainer}>
-        {buttons.map((button, index) => (
+        {buttonControls.map((button, index) => (
           <Buttons
             key={index}
             size={60}

@@ -6,8 +6,8 @@ import { Colors } from "../../styles/theme/Colors";
 import Buttons from "../shared/buttons";
 import { deleteActiveTimer } from "../../redux/actions/actions";
 import { useDispatch } from "react-redux";
-import Header from "../shared/header";
 import ActiveTimersDetail from "./activeTimersDetail";
+import {generateButtonControls} from "../../configs/ButtonConfigs"
 
 const timeStringToSeconds = (timeString) => {
   const [hours, minutes, seconds] = timeString.split(":").map(Number);
@@ -31,12 +31,7 @@ export default ActiveTimersCard = ({ item }) => {
   );
   const [isRunning, setIsRunning] = useState(false);
   const timerInterval = useRef(null);
-
-  const buttons = [
-    !isRunning ? { name: "play" } : { name: "pause" },
-    { name: "stop" },
-  ];
-
+  const buttonControls = generateButtonControls(isRunning);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -108,7 +103,7 @@ export default ActiveTimersCard = ({ item }) => {
       </View>
       <View style={styles.bottomContent}>
         <Text style={styles.value}>{secondsToTimeString(totalSeconds)}</Text>
-        {buttons.map((button, index) => (
+        {buttonControls.map((button, index) => (
           <Buttons
             key={index}
             size={35}

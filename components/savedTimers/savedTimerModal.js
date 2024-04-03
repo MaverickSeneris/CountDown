@@ -3,11 +3,12 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { Colors } from "../../styles/theme/Colors";
 import Header from "../shared/header";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import TimePicker from "../shared/timePicker";
 import NameInput from "../shared/nameInput";
 import Buttons from "../shared/buttons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {inputButtons} from "../../configs/ButtonConfigs.js"
+
 
 export default function SavedTimerModal({
   modalToggler,
@@ -15,27 +16,7 @@ export default function SavedTimerModal({
   onSelectMinute,
   onSelectSecond,
 }) {
-  const [countdown, setCountdown] = useState(new Date());
-  const inputButtons = [
-    {
-      name: "save",
-      icon: "content-save-outline",
-      bgColor: Colors.LIGHT,
-      iconColor: Colors.DARK,
-    },
-    {
-      name: "play",
-      icon: "play",
-      bgColor: Colors.PURPLE,
-      iconColor: Colors.LIGHT,
-    },
-    {
-      name: "undo",
-      icon: "undo-variant",
-      bgColor: Colors.RED,
-      iconColor: Colors.LIGHT,
-    },
-  ];
+
   const hoursData = Array.from({ length: 24 }, (_, i) =>
     i.toString().padStart(2, "0")
   );
@@ -62,7 +43,6 @@ export default function SavedTimerModal({
         icon={true}
       />
       <NameInput title={"Title"} />
-      {/* <DateTimePicker textColor={Colors.LIGHT} mode="countdown" value={countdown} display="spinner" /> */}
       <TimePicker
         hoursData={hoursData}
         renderItem={renderItem}
