@@ -30,6 +30,7 @@ export default function PresetTimers({ item, handleSelectTimer }) {
         {presetButtons.map((button, index) => (
           <Buttons
             key={index}
+            size={45}
             bgColor={button.name === "add" ? Colors.PURPLE : Colors.RED}
             event={button.name}
             onAddPress={onAddPress}

@@ -39,6 +39,7 @@ export default function ActiveTimersDetail({
         {buttons.map((button, index) => (
           <Buttons
             key={index}
+            size={60}
             bgColor={
               button.name === "play"
                 ? isRunning
@@ -56,7 +57,7 @@ export default function ActiveTimersDetail({
           >
             <MaterialCommunityIcons
               name={button.name}
-              size={30}
+              size={50}
               color={Colors.LIGHT}
             />
           </Buttons>

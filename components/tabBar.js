@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Platform,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors } from "../styles/theme/Colors";
 
 export const CustomTabBar = ({ state, descriptors, navigation }) => {
@@ -70,7 +64,9 @@ const styles = StyleSheet.create({
   tabBarContainer: {
     flexDirection: "row",
     backgroundColor: Colors.DARK_GRAY,
+    borderColor: Colors.LIGHT_GRAY,
     borderRadius: 50,
+    borderWidth: 2,
     marginTop: 0,
     marginBottom: 20,
     marginHorizontal: 20,
@@ -80,8 +76,6 @@ const styles = StyleSheet.create({
     height: 80,
     position: "absolute",
     bottom: 7,
-    borderColor: Colors.LIGHT_GRAY,
-    borderWidth: 2
   },
   tabIcons: {
     flex: 1,

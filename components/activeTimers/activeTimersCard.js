@@ -111,6 +111,7 @@ export default ActiveTimersCard = ({ item }) => {
         {buttons.map((button, index) => (
           <Buttons
             key={index}
+            size={35}
             bgColor={
               button.name === "play"
                 ? isRunning
