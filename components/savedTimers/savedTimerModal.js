@@ -1,17 +1,13 @@
 // TODO: Don't touch this code. Just add the  buttons
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  FlatList,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { Colors } from "../../styles/theme/Colors";
 import Header from "../shared/header";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
+import TimePicker from "../shared/timePicker";
+import NameInput from "../shared/nameInput";
+import Buttons from "../shared/buttons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function SavedTimerModal({
   modalToggler,
@@ -20,7 +16,26 @@ export default function SavedTimerModal({
   onSelectSecond,
 }) {
   const [countdown, setCountdown] = useState(new Date());
-
+  const inputButtons = [
+    {
+      name: "save",
+      icon: "content-save-outline",
+      bgColor: Colors.LIGHT,
+      iconColor: Colors.DARK,
+    },
+    {
+      name: "play",
+      icon: "play",
+      bgColor: Colors.PURPLE,
+      iconColor: Colors.LIGHT,
+    },
+    {
+      name: "undo",
+      icon: "undo-variant",
+      bgColor: Colors.RED,
+      iconColor: Colors.LIGHT,
+    },
+  ];
   const hoursData = Array.from({ length: 24 }, (_, i) =>
     i.toString().padStart(2, "0")
   );
@@ -46,69 +61,25 @@ export default function SavedTimerModal({
         icnColor={Colors.LIGHT}
         icon={true}
       />
-      <View style={styles.inputContent}>
-        <TextInput
-          placeholder="Title"
-          style={styles.input}
-          placeholderTextColor={Colors.DARK_GRAY}
-          pla
-        />
-      </View>
-
+      <NameInput title={"Title"} />
       {/* <DateTimePicker textColor={Colors.LIGHT} mode="countdown" value={countdown} display="spinner" /> */}
-      <View style={styles.container}>
-        <FlatList
-          data={hoursData}
-          renderItem={renderItem}
-          keyExtractor={(item) => item}
-          showsVerticalScrollIndicator={false}
-          snapToInterval={50} // Adjust based on item size
-          initialScrollIndex={
-            hoursData.current ? hoursData.current.length * 50 : 0
-          }
-        />
-        <Text
-          style={{
-            color: Colors.LIGHT_GRAY,
-            fontFamily: "Light",
-            fontSize: 64,
-          }}
-        >
-          :
-        </Text>
-        <FlatList
-          data={minutesSecondsData}
-          renderItem={renderItem}
-          keyExtractor={(item) => item}
-          showsVerticalScrollIndicator={false}
-          snapToInterval={50} // Adjust based on item size
-          initialScrollIndex={
-            minutesSecondsData.current
-              ? minutesSecondsData.current.length * 50
-              : 0
-          }
-        />
-        <Text
-          style={{
-            color: Colors.LIGHT_GRAY,
-            fontFamily: "Light",
-            fontSize: 64,
-          }}
-        >
-          :
-        </Text>
-        <FlatList
-          data={minutesSecondsData}
-          renderItem={renderItem}
-          keyExtractor={(item) => item}
-          showsVerticalScrollIndicator={false}
-          snapToInterval={50} // Adjust based on item size
-          initialScrollIndex={
-            minutesSecondsData.current
-              ? minutesSecondsData.current.length * 50
-              : 0
-          }
-        />
+      <TimePicker
+        hoursData={hoursData}
+        renderItem={renderItem}
+        minutesSecondsData={minutesSecondsData}
+      />
+      <View style={styles.buttonContainer}>
+        {inputButtons.map((item, index) => {
+          return (
+            <Buttons bgColor={item.bgColor} key={index} size={50}>
+              <MaterialCommunityIcons
+                name={item.icon}
+                color={item.iconColor}
+                size={35}
+              />
+            </Buttons>
+          );
+        })}
       </View>
     </View>
   );
@@ -127,19 +98,6 @@ const styles = StyleSheet.create({
     color: Colors.LIGHT,
     fontSize: 50,
   },
-  inputContent: {
-    marginTop: 10,
-    marginHorizontal: 20,
-    borderBottomColor: Colors.DARK_GRAY,
-    borderBottomWidth: 2,
-    paddingVertical: 10,
-  },
-  input: {
-    fontSize: 36,
-    color: Colors.LIGHT,
-    fontFamily: "Regular",
-  },
-
   container: {
     flex: 1,
     paddingHorizontal: 50,
@@ -151,7 +109,7 @@ const styles = StyleSheet.create({
     marginBottom: 170,
     marginHorizontal: 20,
     borderBottomWidth: 2,
-    borderBottomColor: Colors.DARK_GRAY
+    borderBottomColor: Colors.DARK_GRAY,
   },
   item: {
     textAlign: "center",
@@ -160,4 +118,14 @@ const styles = StyleSheet.create({
     fontSize: 64,
     color: Colors.LIGHT_GRAY,
   },
+  buttonContainer:{
+    flexDirection: 'row',
+    marginHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 20,
+    paddingTop: 50,
+    paddingBottom: 100
+  }
+  
 });
