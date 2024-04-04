@@ -1,14 +1,12 @@
-// TODO: Don't touch this code. Just add the  buttons
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
-import { Colors } from "../../styles/theme/Colors";
+import React from "react";
 import Header from "../shared/header";
 import TimePicker from "../shared/timePicker";
 import NameInput from "../shared/nameInput";
 import Buttons from "../shared/buttons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import {inputButtons} from "../../configs/ButtonConfigs.js"
-
+import { inputButtons } from "../../configs/ButtonConfigs.js";
+import { Colors } from "../../styles/theme/Colors";
 
 export default function SavedTimerModal({
   modalToggler,
@@ -16,14 +14,10 @@ export default function SavedTimerModal({
   onSelectMinute,
   onSelectSecond,
 }) {
-
-  const hoursData = Array.from({ length: 24 }, (_, i) =>
-    i.toString().padStart(2, "0")
-  );
-  const minutesSecondsData = Array.from({ length: 60 }, (_, i) =>
-    i.toString().padStart(2, "0")
-  );
-
+  const hoursData = getLoopingData(25);
+  const minutesSecondsData = getLoopingData(60);
+ 
+  console.log(hoursData)
   const renderItem = ({ item }) => (
     <Text style={styles.item} onPress={() => onSelectHour(item)}>
       {item}
@@ -98,14 +92,25 @@ const styles = StyleSheet.create({
     fontSize: 64,
     color: Colors.LIGHT_GRAY,
   },
-  buttonContainer:{
-    flexDirection: 'row',
+  buttonContainer: {
+    flexDirection: "row",
     marginHorizontal: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     gap: 20,
     paddingTop: 50,
-    paddingBottom: 100
-  }
-  
+    paddingBottom: 100,
+  },
 });
+
+function getLoopingData(size) {
+  const data = Array.from({ length: size }, (_, i) => {
+    const key = Math.random().toString();
+    return { key, value: i.toString().padStart(2, "0") };
+  });
+
+  const dataArray = [...data.slice(data.length / 2), ...data, ...data.slice(0, data.length / 2)];
+
+  return dataArray.map(item => item.value);
+}
+
