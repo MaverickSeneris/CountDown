@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Header from "../shared/header";
 import TimePicker from "../shared/timePicker";
 import NameInput from "../shared/nameInput";
@@ -7,17 +7,18 @@ import Buttons from "../shared/buttons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { inputButtons } from "../../configs/ButtonConfigs.js";
 import { Colors } from "../../styles/theme/Colors";
-import { useDispatch } from 'react-redux';
-import { addSavedTimer } from '../../redux/actions/actions.js';
+import { useDispatch } from "react-redux";
+import { addSavedTimer } from "../../redux/actions/actions.js";
 
 export default function SavedTimerModal({
   modalToggler,
-  selectedValue
+  selectedValue,
   // onSelectHour,
   // onSelectMinute,
   // onSelectSecond,
 }) {
-  const [timer, setTimer] =useState([])
+  const [timer, setTimer] = useState([]);
+  const [inputValue, setInputValue] = useState("");
   const hoursData = getLoopingData(25);
   const minutesSecondsData = getLoopingData(60);
 
@@ -26,14 +27,17 @@ export default function SavedTimerModal({
   const handleSaveTimer = () => {
     const newTimer = {
       key: Math.random().toString(),
-      name: "Custom Timer", // You can change this to the actual name inputted by the user
-      value: selectedValue,
+      name: inputValue, // You can change this to the actual name inputted by the user
+      value: "00:03:00", // You can change this to the actual time value inputted by the user
     };
     dispatch(addSavedTimer(newTimer));
-    // Additional logic for closing modal or navigating to another screen
+    modalToggler()
   };
 
- 
+  const handleInputChange = (text) => {
+    setInputValue(text);
+  };
+
   const renderHourItem = ({ item }) => (
     <Text
       style={[
@@ -58,17 +62,15 @@ export default function SavedTimerModal({
     </Text>
   );
 
+  const selectedHour = (hourValue) => {
+    console.log("hour: " + hourValue);
+    return hourValue;
+  };
 
-  const selectedHour = (hourValue)=>{
-    console.log("hour: " +  hourValue)
-    return hourValue
-  }
-
-  const selectedMinuteSecond = (minuteValue)=>{
-    console.log("minute: " +  minuteValue)
-    return minuteValue
-  }
-
+  const selectedMinuteSecond = (minuteValue) => {
+    console.log("minute: " + minuteValue);
+    return minuteValue;
+  };
 
   return (
     <View style={styles.content}>
@@ -82,7 +84,11 @@ export default function SavedTimerModal({
         icnColor={Colors.LIGHT}
         icon={true}
       />
-      <NameInput title={"Title"} />
+      <NameInput
+        title={"Title"}
+        inputValue={inputValue}
+        handleInputChange={handleInputChange}
+      />
       <TimePicker
         hoursData={hoursData}
         renderHourItem={renderHourItem}
@@ -94,7 +100,13 @@ export default function SavedTimerModal({
       <View style={styles.buttonContainer}>
         {inputButtons.map((item, index) => {
           return (
-            <Buttons bgColor={item.bgColor} key={index} size={50} event={item.name && item.name} handleSaveTimer={handleSaveTimer}>
+            <Buttons
+              bgColor={item.bgColor}
+              key={index}
+              size={50}
+              event={item.name && item.name}
+              handleSaveTimer={handleSaveTimer}
+            >
               <MaterialCommunityIcons
                 name={item.icon}
                 color={item.iconColor}
@@ -154,12 +166,15 @@ const styles = StyleSheet.create({
 
 function getLoopingData(size) {
   const data = Array.from({ length: size }, (_, i) => {
-    const key = Math.random() * 16 | 0;
+    const key = (Math.random() * 16) | 0;
     return { key, value: i.toString().padStart(2, "0") };
   });
 
-  const dataArray = [...data.slice(data.length / 2), ...data, ...data.slice(0, data.length / 2)];
+  const dataArray = [
+    ...data.slice(data.length / 2),
+    ...data,
+    ...data.slice(0, data.length / 2),
+  ];
 
-  return dataArray.map(item => item.value);
+  return dataArray.map((item) => item.value);
 }
-
