@@ -7,6 +7,7 @@ export default function Buttons({
   onAddPress,
   onDeletePress,
   handlePlayPause,
+  handleSaveTimer,
   handleStop,
   event,
   size,
@@ -22,6 +23,8 @@ export default function Buttons({
         return handlePlayPause();
       case "stop":
         return handleStop();
+      case "save":
+        return handleSaveTimer();
       default:
         return;
     }

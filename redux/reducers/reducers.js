@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 
-// Initial state for saved timers and active timers
 const initialState = {
   savedTimers: [
     { key: 1, name: "Ravioli Pasta", value: "00:09:00" },
@@ -34,6 +33,13 @@ const rootReducer = (state = initialState, action) => {
         activeTimers: state.activeTimers.filter(
           (timer) => timer.key !== action.payload
         ),
+      };
+    case "ADD_SAVED_TIMER":
+      const newCountDownTimer = { ...action.payload, key: Math.random().toString() }; // Generate unique identifier
+      console.log("Adding timer to saved timers:", newCountDownTimer);
+      return {
+        ...state,
+        savedTimers: [...state.savedTimers, newCountDownTimer],
       };
     default:
       console.log("Unhandled action:", action.type);

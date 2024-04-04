@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import React, {useState} from "react";
 import Header from "../shared/header";
 import TimePicker from "../shared/timePicker";
 import NameInput from "../shared/nameInput";
@@ -7,22 +7,68 @@ import Buttons from "../shared/buttons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { inputButtons } from "../../configs/ButtonConfigs.js";
 import { Colors } from "../../styles/theme/Colors";
+import { useDispatch } from 'react-redux';
+import { addSavedTimer } from '../../redux/actions/actions.js';
 
 export default function SavedTimerModal({
   modalToggler,
-  onSelectHour,
-  onSelectMinute,
-  onSelectSecond,
+  selectedValue
+  // onSelectHour,
+  // onSelectMinute,
+  // onSelectSecond,
 }) {
+  const [timer, setTimer] =useState([])
   const hoursData = getLoopingData(25);
   const minutesSecondsData = getLoopingData(60);
+
+  const dispatch = useDispatch();
+  // Handle saving the selected timer
+  const handleSaveTimer = () => {
+    const newTimer = {
+      key: Math.random().toString(),
+      name: "Custom Timer", // You can change this to the actual name inputted by the user
+      value: selectedValue,
+    };
+    dispatch(addSavedTimer(newTimer));
+    // Additional logic for closing modal or navigating to another screen
+  };
+
  
-  console.log(hoursData)
-  const renderItem = ({ item }) => (
-    <Text style={styles.item} onPress={() => onSelectHour(item)}>
+  const renderHourItem = ({ item }) => (
+    <Text
+      style={[
+        styles.item,
+        item === selectedHour && { color: Colors.RED }, // Highlight selected hour
+      ]}
+      onPress={() => selectedHour(item)}
+    >
       {item}
     </Text>
   );
+
+  const renderMinuteSecondItem = ({ item }) => (
+    <Text
+      style={[
+        styles.item,
+        item === selectedMinuteSecond && { color: Colors.LIGHT }, // Highlight selected minute
+      ]}
+      onPress={() => selectedMinuteSecond(item)}
+    >
+      {item}
+    </Text>
+  );
+
+
+  const selectedHour = (hourValue)=>{
+    console.log("hour: " +  hourValue)
+    return hourValue
+  }
+
+  const selectedMinuteSecond = (minuteValue)=>{
+    console.log("minute: " +  minuteValue)
+    return minuteValue
+  }
+
 
   return (
     <View style={styles.content}>
@@ -39,13 +85,16 @@ export default function SavedTimerModal({
       <NameInput title={"Title"} />
       <TimePicker
         hoursData={hoursData}
-        renderItem={renderItem}
+        renderHourItem={renderHourItem}
+        renderMinuteSecondItem={renderMinuteSecondItem}
         minutesSecondsData={minutesSecondsData}
+        selectedHour={selectedHour}
+        selectedMinuteSecond={selectedMinuteSecond}
       />
       <View style={styles.buttonContainer}>
         {inputButtons.map((item, index) => {
           return (
-            <Buttons bgColor={item.bgColor} key={index} size={50}>
+            <Buttons bgColor={item.bgColor} key={index} size={50} event={item.name && item.name} handleSaveTimer={handleSaveTimer}>
               <MaterialCommunityIcons
                 name={item.icon}
                 color={item.iconColor}
@@ -90,7 +139,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Light",
     fontSize: 64,
-    color: Colors.LIGHT_GRAY,
+    color: Colors.LIGHT,
   },
   buttonContainer: {
     flexDirection: "row",
@@ -105,7 +154,7 @@ const styles = StyleSheet.create({
 
 function getLoopingData(size) {
   const data = Array.from({ length: size }, (_, i) => {
-    const key = Math.random().toString();
+    const key = Math.random() * 16 | 0;
     return { key, value: i.toString().padStart(2, "0") };
   });
 

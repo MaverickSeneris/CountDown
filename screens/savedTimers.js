@@ -2,8 +2,7 @@ import {
   StyleSheet,
   View,
   FlatList,
-  Modal,
-  Text
+  Modal
 } from "react-native";
 import React, { useState } from "react";
 import Header from "../components/shared/header";

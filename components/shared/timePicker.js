@@ -4,65 +4,40 @@ import { Colors } from "../../styles/theme/Colors";
 
 export default function TimePicker({
   hoursData,
-  renderItem,
+  renderHourItem,
+  renderMinuteSecondItem,
   minutesSecondsData,
+  selectedValue,
 }) {
 
-
-
+  
   return (
     <View style={styles.container}>
       <FlatList
         data={hoursData}
-        renderItem={renderItem}
+        renderItem={renderHourItem}
         keyExtractor={(item) => item.key}
         showsVerticalScrollIndicator={false}
         snapToInterval={50}
-        // initialScrollIndex={
-        //   hoursData.current ? hoursData.current.length * 50 : 0
-        // }
+        initialScrollIndex={selectedValue ? parseInt(selectedValue) + 24 : 0}
       />
-      <Text
-        style={{
-          color: Colors.LIGHT_GRAY,
-          fontFamily: "Light", 
-          fontSize: 64,
-        }}
-      >
-        :
-      </Text>
+      <Text style={styles.timeSeperator}>:</Text>
       <FlatList
         data={minutesSecondsData}
-        renderItem={renderItem}
+        renderItem={renderMinuteSecondItem}
         keyExtractor={(item) => item.key}
         showsVerticalScrollIndicator={false}
         snapToInterval={50}
-        // initialScrollIndex={
-        //   minutesSecondsData.current
-        //     ? minutesSecondsData.current.length * 50
-        //     : 0
-        // }
+        initialScrollIndex={selectedValue ? parseInt(selectedValue) + 30 : 0}
       />
-      <Text
-        style={{
-          color: Colors.LIGHT_GRAY,
-          fontFamily: "Light",
-          fontSize: 64,
-        }}
-      >
-        :
-      </Text>
+      <Text style={styles.timeSeperator}>:</Text>
       <FlatList
         data={minutesSecondsData}
-        renderItem={renderItem}
+        renderItem={renderMinuteSecondItem}
         keyExtractor={(item) => item.key}
         showsVerticalScrollIndicator={false}
         snapToInterval={50}
-        // initialScrollIndex={
-        //   minutesSecondsData.current
-        //     ? minutesSecondsData.current.length * 50
-        //     : 0
-        // }
+        initialScrollIndex={selectedValue ? parseInt(selectedValue) + 30 : 0}
       />
     </View>
   );
@@ -81,11 +56,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: Colors.DARK_GRAY,
   },
-  item: {
-    textAlign: "center",
-    fontSize: 18,
+  timeSeperator: {
+    color: Colors.LIGHT_GRAY,
     fontFamily: "Light",
     fontSize: 64,
-    color: Colors.LIGHT_GRAY,
   },
 });

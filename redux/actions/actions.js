@@ -16,3 +16,8 @@ export const addToActiveTimer = (timer) => ({
       payload: timerId,
     };
   };
+
+  export const addSavedTimer = (timer) => ({
+    type: 'ADD_SAVED_TIMER',
+    payload: timer,
+  });
