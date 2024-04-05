@@ -6,6 +6,7 @@ export default function TimePicker({
   hoursData,
   renderHourItem,
   renderMinuteSecondItem,
+  renderSecondItem,
   minutesSecondsData,
   selectedValue,
 }) {
@@ -33,7 +34,7 @@ export default function TimePicker({
       <Text style={styles.timeSeperator}>:</Text>
       <FlatList
         data={minutesSecondsData}
-        renderItem={renderMinuteSecondItem}
+        renderItem={renderSecondItem}
         keyExtractor={(item) => item.key}
         showsVerticalScrollIndicator={false}
         snapToInterval={50}

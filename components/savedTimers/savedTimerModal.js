@@ -17,33 +17,47 @@ export default function SavedTimerModal({
   // onSelectMinute,
   // onSelectSecond,
 }) {
-  const [timer, setTimer] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [hour, setHour] = useState(null);
+  const [minute, setMinute] = useState(null);
+  const [second, setSecond] = useState(null);
   const hoursData = getLoopingData(25);
   const minutesSecondsData = getLoopingData(60);
 
   const dispatch = useDispatch();
   // Handle saving the selected timer
   const handleSaveTimer = () => {
+    const timerValue = `${hour}:${minute}:${second}`;
     const newTimer = {
       key: Math.random().toString(),
       name: inputValue, // You can change this to the actual name inputted by the user
-      value: "00:03:00", // You can change this to the actual time value inputted by the user
+      value: timerValue, // You can change this to the actual time value inputted by the user
     };
     dispatch(addSavedTimer(newTimer));
-    modalToggler()
+    modalToggler();
   };
 
   const handleInputChange = (text) => {
     setInputValue(text);
   };
 
+  const selectedHour = (hourValue) => {
+    console.log("hour: " + hourValue);
+    setHour(hourValue);
+  };
+
+  const selectedMinute = (minuteValue) => {
+    console.log("minute: " + minuteValue);
+    setMinute(minuteValue)
+  };
+  const selectSecond = (secondValue) => {
+    console.log("second: " + secondValue);
+    setSecond(secondValue)
+  };
+
   const renderHourItem = ({ item }) => (
     <Text
-      style={[
-        styles.item,
-        item === selectedHour && { color: Colors.RED }, // Highlight selected hour
-      ]}
+      style={[styles.item, item === selectedHour && { color: Colors.LIGHT }]}
       onPress={() => selectedHour(item)}
     >
       {item}
@@ -54,23 +68,25 @@ export default function SavedTimerModal({
     <Text
       style={[
         styles.item,
-        item === selectedMinuteSecond && { color: Colors.LIGHT }, // Highlight selected minute
+        item === selectedMinute && { color: Colors.LIGHT },
       ]}
-      onPress={() => selectedMinuteSecond(item)}
+      onPress={() => selectedMinute(item)}
     >
       {item}
     </Text>
   );
 
-  const selectedHour = (hourValue) => {
-    console.log("hour: " + hourValue);
-    return hourValue;
-  };
-
-  const selectedMinuteSecond = (minuteValue) => {
-    console.log("minute: " + minuteValue);
-    return minuteValue;
-  };
+  const renderSecondItem = ({ item }) => (
+    <Text
+      style={[
+        styles.item,
+        item === selectSecond && { color: Colors.LIGHT },
+      ]}
+      onPress={() => selectSecond(item)}
+    >
+      {item}
+    </Text>
+  );
 
   return (
     <View style={styles.content}>
@@ -93,9 +109,11 @@ export default function SavedTimerModal({
         hoursData={hoursData}
         renderHourItem={renderHourItem}
         renderMinuteSecondItem={renderMinuteSecondItem}
+        renderSecondItem={renderSecondItem}
         minutesSecondsData={minutesSecondsData}
         selectedHour={selectedHour}
-        selectedMinuteSecond={selectedMinuteSecond}
+        selectedMinute={selectedMinute}
+        selectSecond={selectSecond}
       />
       <View style={styles.buttonContainer}>
         {inputButtons.map((item, index) => {
@@ -151,7 +169,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Light",
     fontSize: 64,
-    color: Colors.LIGHT,
+    color: Colors.DARK_GRAY,
   },
   buttonContainer: {
     flexDirection: "row",
