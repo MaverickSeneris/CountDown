@@ -15,7 +15,7 @@ export const inputButtons = [
     iconColor: Colors.DARK,
   },
   {
-    name: "play",
+    name: "addToActiveTimer",
     icon: "play",
     bgColor: Colors.PURPLE,
     iconColor: Colors.LIGHT,

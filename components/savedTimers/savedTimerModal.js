@@ -8,14 +8,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { inputButtons } from "../../configs/ButtonConfigs.js";
 import { Colors } from "../../styles/theme/Colors";
 import { useDispatch } from "react-redux";
-import { addSavedTimer } from "../../redux/actions/actions.js";
+import { addSavedTimer, addToActiveTimer } from "../../redux/actions/actions.js";
 
 export default function SavedTimerModal({
   modalToggler,
-  selectedValue,
-  // onSelectHour,
-  // onSelectMinute,
-  // onSelectSecond,
 }) {
   const [inputValue, setInputValue] = useState("");
   const [hour, setHour] = useState(null);
@@ -25,17 +21,28 @@ export default function SavedTimerModal({
   const minutesSecondsData = getLoopingData(60);
 
   const dispatch = useDispatch();
+
   // Handle saving the selected timer
   const handleSaveTimer = () => {
     const timerValue = `${hour}:${minute}:${second}`;
     const newTimer = {
       key: Math.random().toString(),
-      name: inputValue, // You can change this to the actual name inputted by the user
-      value: timerValue, // You can change this to the actual time value inputted by the user
+      name: inputValue,
+      value: timerValue,
     };
     dispatch(addSavedTimer(newTimer));
     modalToggler();
   };
+
+  const handleAddtoActiveTimer = () => {
+    const timerValue = `${hour}:${minute}:${second}`;
+    const newTimer = {
+      name: inputValue,
+      value: timerValue,
+    };
+    dispatch(addToActiveTimer(newTimer))
+    modalToggler();
+  }
 
   const handleInputChange = (text) => {
     setInputValue(text);
@@ -124,6 +131,7 @@ export default function SavedTimerModal({
               size={50}
               event={item.name && item.name}
               handleSaveTimer={handleSaveTimer}
+              handleAddtoActiveTimer={handleAddtoActiveTimer}
             >
               <MaterialCommunityIcons
                 name={item.icon}

@@ -8,6 +8,7 @@ export default function Buttons({
   onDeletePress,
   handlePlayPause,
   handleSaveTimer,
+  handleAddtoActiveTimer,
   handleStop,
   event,
   size,
@@ -25,6 +26,8 @@ export default function Buttons({
         return handleStop();
       case "save":
         return handleSaveTimer();
+      case "addToActiveTimer":
+        return handleAddtoActiveTimer();
       default:
         return;
     }
