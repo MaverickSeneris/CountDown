@@ -1,16 +1,16 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import Header from "../shared/header";
-import TimePicker from "../shared/timePicker";
-import NameInput from "../shared/nameInput";
-import Buttons from "../shared/buttons";
+import Header from "../shared/header.js";
+import TimePicker from "../shared/timePicker.js";
+import NameInput from "../shared/nameInput.js";
+import Buttons from "../shared/buttons.js";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { inputButtons } from "../../configs/ButtonConfigs.js";
-import { Colors } from "../../styles/theme/Colors";
+import { Colors } from "../../styles/theme/Colors.js";
 import { useDispatch } from "react-redux";
 import { addSavedTimer, addToActiveTimer } from "../../redux/actions/actions.js";
 
-export default function SavedTimerModal({
+export default function NewTimerModal({
   modalToggler,
 }) {
   const [inputValue, setInputValue] = useState("");
@@ -106,11 +106,13 @@ export default function SavedTimerModal({
         icnBgColor={Colors.RED}
         icnColor={Colors.LIGHT}
         icon={true}
+
       />
       <NameInput
         title={"Title"}
         inputValue={inputValue}
         handleInputChange={handleInputChange}
+
       />
       <TimePicker
         hoursData={hoursData}

@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import ButtonLarge from "../components/shared/buttonLrg";
 import { addToActiveTimer } from "../redux/actions/actions";
-import SavedTimerModal from "../components/savedTimers/savedTimerModal";
+import NewTimerModal from "../components/savedTimers/newTimerModal";
 import EmptyState from "../components/shared/emptyState";
 
 
@@ -42,7 +42,7 @@ export default function SavedTimers() {
       />
 
       <Modal style={styles.modalContent} visible={modal} animationType="slide">
-        <SavedTimerModal modalToggler={modalToggler}/>
+        <NewTimerModal modalToggler={modalToggler}/>
       </Modal>
 
       <View style={styles.presetTimerContainer}>

@@ -7,8 +7,7 @@ import { useState } from "react";
 import ActiveTimersCard from "../components/activeTimers/activeTimersCard";
 import EmptyState from "../components/shared/emptyState";
 import { MaterialIcons } from "@expo/vector-icons";
-import SavedTimerModal from "../components/savedTimers/savedTimerModal";
-
+import NewTimerModal from "../components/savedTimers/newTimerModal";
 
 export default function ActiveTimers({navigation}) {
   const activeTimers = useSelector((state) => state.rootReducer.activeTimers);
@@ -32,7 +31,7 @@ export default function ActiveTimers({navigation}) {
         />
       </View>}
       <Modal style={styles.modalContent} visible={modal} animationType="slide">
-        <SavedTimerModal modalToggler={modalToggler}/>
+        <NewTimerModal modalToggler={modalToggler}/>
       </Modal>
       <View style={styles.addButtonContainer}>
         <ButtonLarge bgColor={Colors.RED} modalToggler={modalToggler}>
@@ -47,13 +46,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.DARK,
-
   },
   activeTimers: {
     flex: 1,
     marginTop: 40,
-    marginHorizontal: 20,
-   
+    marginHorizontal: 20, 
   },
   addButtonContainer: {
     position: "absolute",

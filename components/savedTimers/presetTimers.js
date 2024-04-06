@@ -1,18 +1,31 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Modal,
+  Button,
+} from "react-native";
+import React, { useState } from "react";
 import { Colors } from "../../styles/theme/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import Buttons from "../shared/buttons";
 import { useDispatch } from "react-redux";
 import { deleteSavedTimer } from "../../redux/actions/actions";
 import { presetButtons } from "../../configs/ButtonConfigs";
+import NewTimerModal from "./newTimerModal";
 
 export default function PresetTimers({ item, handleSelectTimer }) {
+  const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
 
   const onAddPress = () => handleSelectTimer(item.key);
   const handleDeleteSavedTimer = () => {
     dispatch(deleteSavedTimer(item.key));
+  };
+
+  const modalToggler = () => {
+    setModal(!modal);
   };
 
   return (
@@ -21,7 +34,7 @@ export default function PresetTimers({ item, handleSelectTimer }) {
         <Text style={styles.name}>{item.name}</Text>
       </View>
       <View style={styles.presetTimerContent}>
-        <TouchableOpacity style={styles.valueContent}>
+        <TouchableOpacity style={styles.valueContent} onPress={modalToggler}>
           <Text style={styles.value}>{item.value}</Text>
         </TouchableOpacity>
         {presetButtons.map((button, index) => (
@@ -36,6 +49,12 @@ export default function PresetTimers({ item, handleSelectTimer }) {
             <MaterialIcons name={button.icon} color={Colors.LIGHT} size={23} />
           </Buttons>
         ))}
+        {/* MODAL */}
+        <Modal animationType="slide" visible={modal}>
+          <View style={{ flex: 1, padding: 100, backgroundColor: Colors.DARK}}>
+            <Button onPress={modalToggler} title="CLOSE" />
+          </View>
+        </Modal>
       </View>
     </View>
   );
