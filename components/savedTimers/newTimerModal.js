@@ -12,6 +12,9 @@ import { addSavedTimer, addToActiveTimer } from "../../redux/actions/actions.js"
 
 export default function NewTimerModal({
   modalToggler,
+  savedTimerDetail,
+  savedTimerDetailHeader,
+  savedTimerDetaileName
 }) {
   const [inputValue, setInputValue] = useState("");
   const [hour, setHour] = useState(null);
@@ -71,6 +74,8 @@ export default function NewTimerModal({
     </Text>
   );
 
+
+
   const renderMinuteSecondItem = ({ item }) => (
     <Text
       style={[
@@ -101,7 +106,7 @@ export default function NewTimerModal({
         <Text style={styles.close}>&#10799;</Text>
       </TouchableOpacity>
       <Header
-        title={"New Timers"}
+        title={savedTimerDetail ? savedTimerDetailHeader : "Add Timer"}
         logoName={"alarm-plus"}
         icnBgColor={Colors.RED}
         icnColor={Colors.LIGHT}
@@ -109,7 +114,7 @@ export default function NewTimerModal({
 
       />
       <NameInput
-        title={"Title"}
+        title={savedTimerDetail ? savedTimerDetaileName : "Title"}
         inputValue={inputValue}
         handleInputChange={handleInputChange}
 

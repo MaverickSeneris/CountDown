@@ -51,9 +51,13 @@ export default function PresetTimers({ item, handleSelectTimer }) {
         ))}
         {/* MODAL */}
         <Modal animationType="slide" visible={modal}>
-          <View style={{ flex: 1, padding: 100, backgroundColor: Colors.DARK}}>
-            <Button onPress={modalToggler} title="CLOSE" />
-          </View>
+          <NewTimerModal
+            modalToggler={modalToggler}
+            savedTimerDetail={true}
+            savedTimerDetailHeader={"Edit Timer"}
+            savedTimerDetaileName={item.name}
+            savedTimerDetailValue={item.value}
+          />
         </Modal>
       </View>
     </View>
