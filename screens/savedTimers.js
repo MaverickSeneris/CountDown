@@ -41,10 +41,6 @@ export default function SavedTimers() {
         icon={true}
       />
 
-      <Modal style={styles.modalContent} visible={modal} animationType="slide">
-        <NewTimerModal modalToggler={modalToggler}/>
-      </Modal>
-
       <View style={styles.presetTimerContainer}>
         {savedTimers >= 0 ?  <EmptyState screen={"savedTimers"} screenMessage={"No saved timers"}/> : <FlatList
           data={savedTimers}
@@ -53,11 +49,16 @@ export default function SavedTimers() {
           )}
         />}
       </View>
+
       <View style={styles.addButtonContainer}>
         <ButtonLarge bgColor={Colors.RED} modalToggler={modalToggler}>
           <MaterialIcons name="add" size={50} color={Colors.LIGHT} />
         </ButtonLarge>
       </View>
+
+      <Modal style={styles.modalContent} visible={modal} animationType="slide">
+        <NewTimerModal modalToggler={modalToggler}/>
+      </Modal>
     </View>
   );
 }
@@ -74,6 +75,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 40,
     marginHorizontal: 20,
+    paddingBottom: 105
   },
   addButtonContainer: {
     position: "absolute",
