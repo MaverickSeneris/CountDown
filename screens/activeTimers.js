@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 40,
     marginHorizontal: 20, 
-    marginBottom: 105
+    paddingBottom: 105
   },
   addButtonContainer: {
     position: "absolute",
