@@ -37,7 +37,7 @@ export default ActiveTimersCard = ({ item }) => {
   useEffect(() => {
     if (isRunning) {
       timerInterval.current = setInterval(() => {
-        console.log("Decrementing totalSeconds");
+        // console.log("Decrementing totalSeconds");
         setTotalSeconds((prevSeconds) => {
           if (prevSeconds <= 0) {
             clearInterval(timerInterval.current);

@@ -28,8 +28,6 @@ export const inputButtons = [
   },
 ];
 
-
-
 // ACTIVE TIMER && ACTIMER TIMER MODAL BUTTON CONTROLS:
 export const generateButtonControls = (isRunning) => {
   return [!isRunning ? { name: "play" } : { name: "pause" }, { name: "stop" }];

@@ -8,13 +8,15 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { inputButtons } from "../../configs/ButtonConfigs.js";
 import { Colors } from "../../styles/theme/Colors.js";
 import { useDispatch } from "react-redux";
-import { addSavedTimer, addToActiveTimer } from "../../redux/actions/actions.js";
+import { addSavedTimer, addToActiveTimer, editSavedTimer } from "../../redux/actions/actions.js";
 
 export default function NewTimerModal({
   modalToggler,
   savedTimerDetail,
   savedTimerDetailHeader,
-  savedTimerDetaileName
+  savedTimerDetailValue,
+  savedTimerDetailName,
+  savedTimerDetailKey
 }) {
   const [inputValue, setInputValue] = useState("");
   const [hour, setHour] = useState(null);
@@ -24,6 +26,8 @@ export default function NewTimerModal({
   const minutesSecondsData = getLoopingData(60);
 
   const dispatch = useDispatch();
+
+  console.log(savedTimerDetailValue, savedTimerDetailKey)
 
   // Handle saving the selected timer
   const handleSaveTimer = () => {
@@ -40,12 +44,26 @@ export default function NewTimerModal({
   const handleAddtoActiveTimer = () => {
     const timerValue = `${hour}:${minute}:${second}`;
     const newTimer = {
+      key: Math.random().toString(),
       name: inputValue,
       value: timerValue,
     };
     dispatch(addToActiveTimer(newTimer))
     modalToggler();
   }
+
+  const handleUpdateTimer = () => {
+    const timerValue = `${hour}:${minute}:${second}`;
+    const updatedTimer = {
+      name: inputValue,
+      value: timerValue,
+      key: savedTimerDetailKey
+    };
+    dispatch(editSavedTimer( savedTimerDetailKey, updatedTimer ));
+    modalToggler();
+    console.log('UPDATED TIMER: ',updatedTimer)
+  };
+  
 
   const handleInputChange = (text) => {
     setInputValue(text);
@@ -114,10 +132,11 @@ export default function NewTimerModal({
 
       />
       <NameInput
-        title={savedTimerDetail ? savedTimerDetaileName : "Title"}
+        title={savedTimerDetail ? savedTimerDetailName : "Title"}
         inputValue={inputValue}
         handleInputChange={handleInputChange}
-
+        savedTimerDetail={savedTimerDetail}
+        savedTimerDetailName={savedTimerDetailName}
       />
       <TimePicker
         hoursData={hoursData}
@@ -136,9 +155,11 @@ export default function NewTimerModal({
               bgColor={item.bgColor}
               key={index}
               size={50}
-              event={item.name && item.name}
+              event={savedTimerDetail ? "edit" : item.name && item.name}
               handleSaveTimer={handleSaveTimer}
               handleAddtoActiveTimer={handleAddtoActiveTimer}
+              handleUpdateTimer={handleUpdateTimer}
+              savedTimerKey={savedTimerDetailKey}
             >
               <MaterialCommunityIcons
                 name={item.icon}

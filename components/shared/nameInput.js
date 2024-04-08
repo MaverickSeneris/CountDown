@@ -2,13 +2,20 @@ import { StyleSheet, View, TextInput } from "react-native";
 import React from "react";
 import { Colors } from "../../styles/theme/Colors";
 
-export default function NameInput({ title, inputValue, handleInputChange }) {
+export default function NameInput({
+  title,
+  inputValue,
+  handleInputChange,
+  savedTimerDetail,
+  savedTimerDetailName
+}) {
   return (
     <View style={styles.inputContent}>
       <TextInput
+        placeholderTextColor={Colors.DARK_GRAY
+        }
         placeholder={title}
         style={styles.input}
-        placeholderTextColor={Colors.DARK_GRAY}
         onChangeText={handleInputChange}
         value={inputValue}
       />

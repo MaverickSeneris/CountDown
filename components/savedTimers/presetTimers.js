@@ -55,8 +55,9 @@ export default function PresetTimers({ item, handleSelectTimer }) {
             modalToggler={modalToggler}
             savedTimerDetail={true}
             savedTimerDetailHeader={"Edit Timer"}
-            savedTimerDetaileName={item.name}
+            savedTimerDetailName={item.name}
             savedTimerDetailValue={item.value}
+            savedTimerDetailKey={item.key}
           />
         </Modal>
       </View>

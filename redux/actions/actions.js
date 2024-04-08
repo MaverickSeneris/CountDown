@@ -21,3 +21,11 @@ export const addToActiveTimer = (timer) => ({
     type: 'ADD_SAVED_TIMER',
     payload: timer,
   });
+
+  export const editSavedTimer = (timerKey, updatedTimer) => {
+    return {
+      type: 'EDIT_SAVED_TIMER',
+      payload: { timerKey, updatedTimer }
+    };
+  };
+  

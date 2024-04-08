@@ -14,7 +14,7 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_ACTIVE_TIMER":
-      const newTimer = { ...action.payload, key: Math.random().toString() }; // Generate unique identifier
+      const newTimer = { ...action.payload, key: Math.random().toString() };
       console.log("Adding timer to active timers:", newTimer);
       return {
         ...state,
@@ -35,12 +35,25 @@ const rootReducer = (state = initialState, action) => {
         ),
       };
     case "ADD_SAVED_TIMER":
-      const newCountDownTimer = { ...action.payload, key: Math.random().toString() }; // Generate unique identifier
+      const newCountDownTimer = {
+        ...action.payload,
+        key: Math.random().toString(),
+      }; 
       console.log("Adding timer to saved timers:", newCountDownTimer);
       return {
         ...state,
         savedTimers: [...state.savedTimers, newCountDownTimer],
       };
+    case "EDIT_SAVED_TIMER":
+      const { timerKey, updatedTimer } = action.payload;
+      console.log("PAYLOAD: ",action.payload)
+      return {
+        ...state,
+        savedTimers: state.savedTimers.map((timer) =>
+          timer.key === timerKey ? { ...timer, ...updatedTimer } : timer
+        ),
+      };
+
     default:
       console.log("Unhandled action:", action.type);
       return state;
