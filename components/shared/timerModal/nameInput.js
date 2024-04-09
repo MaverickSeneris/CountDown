@@ -18,7 +18,7 @@ export default function NameInput({
         placeholder={title}
         style={styles.input}
         onChangeText={handleInputChange}
-        value={inputValue === '' && savedTimerDetailName }
+        value={savedTimerDetailName ? inputValue === '' && savedTimerDetailName : inputValue }
       />
     </View>
   );

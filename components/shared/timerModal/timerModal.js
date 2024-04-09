@@ -73,7 +73,6 @@ export default function TimerModal({
       };
       dispatch(editSavedTimer(savedTimerDetailKey, updatedTimer));
       modalToggler();
-      // console.log("UPDATED TIMER: ", updatedTimer);
     } else {
       alert('Timer value must be at least 00:00:01');
     }
@@ -82,8 +81,9 @@ export default function TimerModal({
   const validateTimer = (timerValue) => {
     const parts = timerValue.split(':').map(part => parseInt(part));
     const [hours, minutes, seconds] = parts;
-    return hours > 0 || minutes > 0 || seconds >= 1;
+    return !isNaN(hours) && !isNaN(minutes) && !isNaN(seconds) && hours >= 0 && minutes >= 0 && seconds >= 1;
   };
+  
   
 
   const handleInputChange = (text) => {
@@ -91,7 +91,6 @@ export default function TimerModal({
   };
 
   const selectedHour = (hourValue) => {
-    // console.log("hour: " + hourValue);
     setHour(hourValue);
   };
 
@@ -100,7 +99,6 @@ export default function TimerModal({
     setMinute(minuteValue);
   };
   const selectSecond = (secondValue) => {
-    // console.log("second: " + secondValue);
     setSecond(secondValue);
   };
 
