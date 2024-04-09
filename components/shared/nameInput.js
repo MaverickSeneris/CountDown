@@ -1,14 +1,15 @@
 import { StyleSheet, View, TextInput } from "react-native";
-import React from "react";
+import React, {useState} from "react";
 import { Colors } from "../../styles/theme/Colors";
+import { useSelector } from "react-redux";
 
 export default function NameInput({
   title,
   inputValue,
   handleInputChange,
-  savedTimerDetail,
   savedTimerDetailName
 }) {
+
   return (
     <View style={styles.inputContent}>
       <TextInput
@@ -17,11 +18,11 @@ export default function NameInput({
         placeholder={title}
         style={styles.input}
         onChangeText={handleInputChange}
-        value={inputValue}
+        value={inputValue === '' && savedTimerDetailName }
       />
     </View>
   );
-}
+} 
 
 const styles = StyleSheet.create({
   inputContent: {

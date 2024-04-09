@@ -8,7 +8,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { inputButtons } from "../../configs/ButtonConfigs.js";
 import { Colors } from "../../styles/theme/Colors.js";
 import { useDispatch } from "react-redux";
-import { addSavedTimer, addToActiveTimer, editSavedTimer } from "../../redux/actions/actions.js";
+import {
+  addSavedTimer,
+  addToActiveTimer,
+  editSavedTimer,
+} from "../../redux/actions/actions.js";
 
 export default function NewTimerModal({
   modalToggler,
@@ -16,7 +20,7 @@ export default function NewTimerModal({
   savedTimerDetailHeader,
   savedTimerDetailValue,
   savedTimerDetailName,
-  savedTimerDetailKey
+  savedTimerDetailKey,
 }) {
   const [inputValue, setInputValue] = useState("");
   const [hour, setHour] = useState(null);
@@ -27,7 +31,7 @@ export default function NewTimerModal({
 
   const dispatch = useDispatch();
 
-  console.log(savedTimerDetailValue, savedTimerDetailKey)
+  console.log(savedTimerDetailValue, savedTimerDetailKey);
 
   // Handle saving the selected timer
   const handleSaveTimer = () => {
@@ -48,22 +52,21 @@ export default function NewTimerModal({
       name: inputValue,
       value: timerValue,
     };
-    dispatch(addToActiveTimer(newTimer))
+    dispatch(addToActiveTimer(newTimer));
     modalToggler();
-  }
+  };
 
   const handleUpdateTimer = () => {
     const timerValue = `${hour}:${minute}:${second}`;
     const updatedTimer = {
       name: inputValue,
       value: timerValue,
-      key: savedTimerDetailKey
+      key: savedTimerDetailKey,
     };
-    dispatch(editSavedTimer( savedTimerDetailKey, updatedTimer ));
+    dispatch(editSavedTimer(savedTimerDetailKey, updatedTimer));
     modalToggler();
-    console.log('UPDATED TIMER: ',updatedTimer)
+    console.log("UPDATED TIMER: ", updatedTimer);
   };
-  
 
   const handleInputChange = (text) => {
     setInputValue(text);
@@ -76,11 +79,11 @@ export default function NewTimerModal({
 
   const selectedMinute = (minuteValue) => {
     console.log("minute: " + minuteValue);
-    setMinute(minuteValue)
+    setMinute(minuteValue);
   };
   const selectSecond = (secondValue) => {
     console.log("second: " + secondValue);
-    setSecond(secondValue)
+    setSecond(secondValue);
   };
 
   const renderHourItem = ({ item }) => (
@@ -92,14 +95,9 @@ export default function NewTimerModal({
     </Text>
   );
 
-
-
   const renderMinuteSecondItem = ({ item }) => (
     <Text
-      style={[
-        styles.item,
-        item === selectedMinute && { color: Colors.LIGHT },
-      ]}
+      style={[styles.item, item === selectedMinute && { color: Colors.LIGHT }]}
       onPress={() => selectedMinute(item)}
     >
       {item}
@@ -108,10 +106,7 @@ export default function NewTimerModal({
 
   const renderSecondItem = ({ item }) => (
     <Text
-      style={[
-        styles.item,
-        item === selectSecond && { color: Colors.LIGHT },
-      ]}
+      style={[styles.item, item === selectSecond && { color: Colors.LIGHT }]}
       onPress={() => selectSecond(item)}
     >
       {item}
@@ -129,7 +124,6 @@ export default function NewTimerModal({
         icnBgColor={Colors.RED}
         icnColor={Colors.LIGHT}
         icon={true}
-
       />
       <NameInput
         title={savedTimerDetail ? savedTimerDetailName : "Title"}
