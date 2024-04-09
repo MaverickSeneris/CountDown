@@ -33,40 +33,73 @@ export default function NewTimerModal({
 
   console.log(savedTimerDetailValue, savedTimerDetailKey);
 
-  // Handle saving the selected timer
+  function getLoopingData(size) {
+    const data = Array.from({ length: size }, (_, i) => {
+      const key = (Math.random() * 16) | 0;
+      return { key, value: i.toString().padStart(2, "0") };
+    });
+  
+    const dataArray = [
+      ...data.slice(data.length / 2),
+      ...data,
+      ...data.slice(0, data.length / 2),
+    ];
+  
+    return dataArray.map((item) => item.value);
+  }
+
   const handleSaveTimer = () => {
     const timerValue = `${hour}:${minute}:${second}`;
-    const newTimer = {
-      key: Math.random().toString(),
-      name: inputValue,
-      value: timerValue,
-    };
-    dispatch(addSavedTimer(newTimer));
-    modalToggler();
+    if (validateTimer(timerValue)) {
+      const newTimer = {
+        key: Math.random().toString(),
+        name: inputValue,
+        value: timerValue,
+      };
+      dispatch(addSavedTimer(newTimer));
+      modalToggler();
+    } else {
+      alert('Timer value must be at least 00:00:01');
+    }
   };
-
+  
   const handleAddtoActiveTimer = () => {
     const timerValue = `${hour}:${minute}:${second}`;
-    const newTimer = {
-      key: Math.random().toString(),
-      name: inputValue,
-      value: timerValue,
-    };
-    dispatch(addToActiveTimer(newTimer));
-    modalToggler();
+    if (validateTimer(timerValue)) {
+      const newTimer = {
+        key: Math.random().toString(),
+        name: inputValue,
+        value: timerValue,
+      };
+      dispatch(addToActiveTimer(newTimer));
+      modalToggler();
+    } else {
+      alert('Timer value must be at least 00:00:01');
+    }
   };
-
+  
   const handleUpdateTimer = () => {
     const timerValue = `${hour}:${minute}:${second}`;
-    const updatedTimer = {
-      name: inputValue,
-      value: timerValue,
-      key: savedTimerDetailKey,
-    };
-    dispatch(editSavedTimer(savedTimerDetailKey, updatedTimer));
-    modalToggler();
-    console.log("UPDATED TIMER: ", updatedTimer);
+    if (validateTimer(timerValue)) {
+      const updatedTimer = {
+        name: inputValue,
+        value: timerValue,
+        key: savedTimerDetailKey,
+      };
+      dispatch(editSavedTimer(savedTimerDetailKey, updatedTimer));
+      modalToggler();
+      console.log("UPDATED TIMER: ", updatedTimer);
+    } else {
+      alert('Timer value must be at least 00:00:01');
+    }
   };
+  
+  const validateTimer = (timerValue) => {
+    const parts = timerValue.split(':').map(part => parseInt(part));
+    const [hours, minutes, seconds] = parts;
+    return hours > 0 || minutes > 0 || seconds >= 1;
+  };
+  
 
   const handleInputChange = (text) => {
     setInputValue(text);
@@ -212,17 +245,4 @@ const styles = StyleSheet.create({
   },
 });
 
-function getLoopingData(size) {
-  const data = Array.from({ length: size }, (_, i) => {
-    const key = (Math.random() * 16) | 0;
-    return { key, value: i.toString().padStart(2, "0") };
-  });
 
-  const dataArray = [
-    ...data.slice(data.length / 2),
-    ...data,
-    ...data.slice(0, data.length / 2),
-  ];
-
-  return dataArray.map((item) => item.value);
-}
