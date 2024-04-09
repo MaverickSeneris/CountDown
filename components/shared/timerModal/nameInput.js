@@ -1,28 +1,24 @@
+import React from "react";
 import { StyleSheet, View, TextInput } from "react-native";
-import React, {useState} from "react";
 import { Colors } from "../../../styles/theme/Colors";
-import { useSelector } from "react-redux";
 
 export default function NameInput({
   title,
   inputValue,
   handleInputChange,
-  savedTimerDetailName
 }) {
-
   return (
     <View style={styles.inputContent}>
       <TextInput
-        placeholderTextColor={Colors.DARK_GRAY
-        }
+        placeholderTextColor={Colors.DARK_GRAY}
         placeholder={title}
         style={styles.input}
         onChangeText={handleInputChange}
-        value={savedTimerDetailName ? inputValue === '' && savedTimerDetailName : inputValue }
+        value={inputValue}
       />
     </View>
   );
-} 
+}
 
 const styles = StyleSheet.create({
   inputContent: {

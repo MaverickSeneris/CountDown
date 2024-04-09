@@ -15,7 +15,6 @@ import {
 } from "../../../redux/actions/actions.js";
 import getLoopingData from "../../../utils/timeLooping.js";
 
-
 export default function TimerModal({
   modalToggler,
   savedTimerDetail,
@@ -24,7 +23,7 @@ export default function TimerModal({
   savedTimerDetailName,
   savedTimerDetailKey,
 }) {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(savedTimerDetailName || "");
   const [hour, setHour] = useState(null);
   const [minute, setMinute] = useState(null);
   const [second, setSecond] = useState(null);
@@ -44,10 +43,10 @@ export default function TimerModal({
       dispatch(addSavedTimer(newTimer));
       modalToggler();
     } else {
-      alert('Timer value must be at least 00:00:01');
+      alert("Timer value must be at least 00:00:01");
     }
   };
-  
+
   const handleAddtoActiveTimer = () => {
     const timerValue = `${hour}:${minute}:${second}`;
     if (validateTimer(timerValue)) {
@@ -59,10 +58,10 @@ export default function TimerModal({
       dispatch(addToActiveTimer(newTimer));
       modalToggler();
     } else {
-      alert('Timer value must be at least 00:00:01');
+      alert("Timer value must be at least 00:00:01");
     }
   };
-  
+
   const handleUpdateTimer = () => {
     const timerValue = `${hour}:${minute}:${second}`;
     if (validateTimer(timerValue)) {
@@ -74,28 +73,38 @@ export default function TimerModal({
       dispatch(editSavedTimer(savedTimerDetailKey, updatedTimer));
       modalToggler();
     } else {
-      alert('Timer value must be at least 00:00:01');
+      alert("Timer value must be at least 00:00:01");
     }
   };
-  
+
   const validateTimer = (timerValue) => {
-    const parts = timerValue.split(':').map(part => parseInt(part));
+    const parts = timerValue.split(":").map((part) => parseInt(part));
     const [hours, minutes, seconds] = parts;
-    return !isNaN(hours) && !isNaN(minutes) && !isNaN(seconds) && hours >= 0 && minutes >= 0 && seconds >= 1;
+    return (
+      !isNaN(hours) &&
+      !isNaN(minutes) &&
+      !isNaN(seconds) &&
+      hours >= 0 &&
+      minutes >= 0 &&
+      seconds >= 1
+    );
   };
-  
-  
+
+  // const handleInputChange = (text) => {
+  //   setInputValue(text)
+  // };
 
   const handleInputChange = (text) => {
+    console.log("Input Value:", text); // Add this line for debugging
     setInputValue(text);
   };
+  
 
   const selectedHour = (hourValue) => {
     setHour(hourValue);
   };
 
   const selectedMinute = (minuteValue) => {
-    console.log("minute: " + minuteValue);
     setMinute(minuteValue);
   };
   const selectSecond = (secondValue) => {
@@ -227,5 +236,3 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
   },
 });
-
-
