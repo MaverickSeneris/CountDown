@@ -15,7 +15,7 @@ const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_ACTIVE_TIMER":
       const newTimer = { ...action.payload, key: Math.random().toString() };
-      console.log("Adding timer to active timers:", newTimer);
+      // console.log("Adding timer to active timers:", newTimer);
       return {
         ...state,
         activeTimers: [...state.activeTimers, newTimer],
@@ -39,14 +39,14 @@ const rootReducer = (state = initialState, action) => {
         ...action.payload,
         key: Math.random().toString(),
       }; 
-      console.log("Adding timer to saved timers:", newCountDownTimer);
+      // console.log("Adding timer to saved timers:", newCountDownTimer);
       return {
         ...state,
         savedTimers: [...state.savedTimers, newCountDownTimer],
       };
     case "EDIT_SAVED_TIMER":
       const { timerKey, updatedTimer } = action.payload;
-      console.log("PAYLOAD: ",action.payload)
+      // console.log("PAYLOAD: ",action.payload)
       return {
         ...state,
         savedTimers: state.savedTimers.map((timer) =>

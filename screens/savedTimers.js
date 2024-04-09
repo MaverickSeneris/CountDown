@@ -21,7 +21,6 @@ export default function SavedTimers() {
   const dispatch = useDispatch();
   const savedTimers = useSelector((state) => state.rootReducer.savedTimers);
 
-  console.log('SAVED TIMERS: ',savedTimers)
   const handleSelectTimer = (timerKey) => {
     const selectedTimer = savedTimers.find((timer) => timer.key === timerKey);
     dispatch(addToActiveTimer(selectedTimer));

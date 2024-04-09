@@ -31,7 +31,7 @@ export default function NewTimerModal({
 
   const dispatch = useDispatch();
 
-  console.log(savedTimerDetailValue, savedTimerDetailKey);
+
 
   function getLoopingData(size) {
     const data = Array.from({ length: size }, (_, i) => {
@@ -88,7 +88,7 @@ export default function NewTimerModal({
       };
       dispatch(editSavedTimer(savedTimerDetailKey, updatedTimer));
       modalToggler();
-      console.log("UPDATED TIMER: ", updatedTimer);
+      // console.log("UPDATED TIMER: ", updatedTimer);
     } else {
       alert('Timer value must be at least 00:00:01');
     }
@@ -106,16 +106,16 @@ export default function NewTimerModal({
   };
 
   const selectedHour = (hourValue) => {
-    console.log("hour: " + hourValue);
+    // console.log("hour: " + hourValue);
     setHour(hourValue);
   };
 
   const selectedMinute = (minuteValue) => {
-    console.log("minute: " + minuteValue);
+    // console.log("minute: " + minuteValue);
     setMinute(minuteValue);
   };
   const selectSecond = (secondValue) => {
-    console.log("second: " + secondValue);
+    // console.log("second: " + secondValue);
     setSecond(secondValue);
   };
 
