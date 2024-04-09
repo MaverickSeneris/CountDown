@@ -86,16 +86,11 @@ export default function TimerModal({
       !isNaN(seconds) &&
       hours >= 0 &&
       minutes >= 0 &&
-      seconds >= 1
+      seconds >= 0
     );
   };
 
-  // const handleInputChange = (text) => {
-  //   setInputValue(text)
-  // };
-
   const handleInputChange = (text) => {
-    console.log("Input Value:", text); // Add this line for debugging
     setInputValue(text);
   };
   
