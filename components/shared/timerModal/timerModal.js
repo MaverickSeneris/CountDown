@@ -1,20 +1,22 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import Header from "../shared/header.js";
-import TimePicker from "../shared/timePicker.js";
-import NameInput from "../shared/nameInput.js";
-import Buttons from "../shared/buttons.js";
+import Header from "../header.js";
+import TimePicker from "./timePicker.js";
+import NameInput from "./nameInput.js";
+import Buttons from "../buttons.js";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { inputButtons } from "../../configs/ButtonConfigs.js";
-import { Colors } from "../../styles/theme/Colors.js";
+import { inputButtons } from "../../../configs/ButtonConfigs.js";
+import { Colors } from "../../../styles/theme/Colors.js";
 import { useDispatch } from "react-redux";
 import {
   addSavedTimer,
   addToActiveTimer,
   editSavedTimer,
-} from "../../redux/actions/actions.js";
+} from "../../../redux/actions/actions.js";
+import getLoopingData from "../../../utils/timeLooping.js";
 
-export default function NewTimerModal({
+
+export default function TimerModal({
   modalToggler,
   savedTimerDetail,
   savedTimerDetailHeader,
@@ -30,23 +32,6 @@ export default function NewTimerModal({
   const minutesSecondsData = getLoopingData(60);
 
   const dispatch = useDispatch();
-
-
-
-  function getLoopingData(size) {
-    const data = Array.from({ length: size }, (_, i) => {
-      const key = (Math.random() * 16) | 0;
-      return { key, value: i.toString().padStart(2, "0") };
-    });
-  
-    const dataArray = [
-      ...data.slice(data.length / 2),
-      ...data,
-      ...data.slice(0, data.length / 2),
-    ];
-  
-    return dataArray.map((item) => item.value);
-  }
 
   const handleSaveTimer = () => {
     const timerValue = `${hour}:${minute}:${second}`;
@@ -111,7 +96,7 @@ export default function NewTimerModal({
   };
 
   const selectedMinute = (minuteValue) => {
-    // console.log("minute: " + minuteValue);
+    console.log("minute: " + minuteValue);
     setMinute(minuteValue);
   };
   const selectSecond = (secondValue) => {

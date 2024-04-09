@@ -8,6 +8,7 @@ import RootNavigation from "./routes/rootNavigation";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
+
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
     Solid: require("./assets/fonts/RobotoCondensed-Bold.ttf"),

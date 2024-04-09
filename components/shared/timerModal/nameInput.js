@@ -1,6 +1,6 @@
 import { StyleSheet, View, TextInput } from "react-native";
 import React, {useState} from "react";
-import { Colors } from "../../styles/theme/Colors";
+import { Colors } from "../../../styles/theme/Colors";
 import { useSelector } from "react-redux";
 
 export default function NameInput({

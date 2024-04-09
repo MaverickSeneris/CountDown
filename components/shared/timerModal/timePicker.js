@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import React from "react";
-import { Colors } from "../../styles/theme/Colors";
+import { Colors } from "../../../styles/theme/Colors";
 
 export default function TimePicker({
   hoursData,

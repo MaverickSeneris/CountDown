@@ -13,7 +13,7 @@ import Buttons from "../shared/buttons";
 import { useDispatch } from "react-redux";
 import { deleteSavedTimer } from "../../redux/actions/actions";
 import { presetButtons } from "../../configs/ButtonConfigs";
-import NewTimerModal from "./newTimerModal";
+import TimerModal from "../shared/timerModal/timerModal";
 
 export default function PresetTimers({ item, handleSelectTimer }) {
   const [modal, setModal] = useState(false);
@@ -51,7 +51,7 @@ export default function PresetTimers({ item, handleSelectTimer }) {
         ))}
         {/* MODAL */}
         <Modal animationType="slide" visible={modal}>
-          <NewTimerModal
+          <TimerModal
             modalToggler={modalToggler}
             savedTimerDetail={true}
             savedTimerDetailHeader={"Edit Timer"}
