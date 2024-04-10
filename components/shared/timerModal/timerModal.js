@@ -80,6 +80,11 @@ export default function TimerModal({
     }
   };
 
+  const handleUndoTimerValues = () => {
+    setInputValue("")
+    alert("Timer reset.")
+  }
+
   const validateTimer = (timerValue) => {
     const parts = timerValue.split(":").map((part) => parseInt(part));
     const [hours, minutes, seconds] = parts;
@@ -175,6 +180,7 @@ export default function TimerModal({
               handleSaveTimer={handleSaveTimer}
               handleAddtoActiveTimer={handleAddtoActiveTimer}
               handleUpdateTimer={handleUpdateTimer}
+              handleUndoTimerValues={handleUndoTimerValues}
               savedTimerKey={savedTimerDetailKey}
               savedTimerDetail={savedTimerDetail}
             >

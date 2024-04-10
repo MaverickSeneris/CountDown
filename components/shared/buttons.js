@@ -9,6 +9,7 @@ export default function Buttons({
   handlePlayPause,
   handleSaveTimer,
   handleAddtoActiveTimer,
+  handleUndoTimerValues,
   handleUpdateTimer,
   savedTimerKey,
   savedTimerDetail,
@@ -33,7 +34,8 @@ export default function Buttons({
           : handleSaveTimer();
       case "addToActiveTimer":
         return handleAddtoActiveTimer();
-
+      case "undo":
+        return handleUndoTimerValues()
       default:
         return;
     }
