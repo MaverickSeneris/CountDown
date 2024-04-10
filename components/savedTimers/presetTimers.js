@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   View,
   Modal,
+  Alert,
   Button,
 } from "react-native";
 import React, { useState } from "react";
@@ -19,9 +20,36 @@ export default function PresetTimers({ item, handleSelectTimer }) {
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
 
-  const onAddPress = () => handleSelectTimer(item.key);
+  const onAddPress = () => {
+    handleSelectTimer(item.key)
+    alert(`${item.name} added to Active Timers.`)
+  };
+  // const handleDeleteSavedTimer = () => {
+  //   dispatch(deleteSavedTimer(item.key));
+  //   alert(`${item.name} deleted.`)
+  // };
   const handleDeleteSavedTimer = () => {
-    dispatch(deleteSavedTimer(item.key));
+    // Show confirmation alert
+    Alert.alert(
+      "Confirm Deletion",
+      `Are you sure you want to delete ${item.name}?`,
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: () => {
+            // Execute delete action if user confirms
+            dispatch(deleteSavedTimer(item.key));
+            alert(`${item.name} deleted.`);
+          },
+        },
+      ],
+      { cancelable: true }
+    );
   };
 
   const modalToggler = () => {
