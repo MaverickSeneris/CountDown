@@ -10,14 +10,11 @@ export default function TimePicker({
   minutesSecondsData,
   selectedValue,
 }) {
-
-  
   return (
     <View style={styles.container}>
       <FlatList
         data={hoursData}
         renderItem={renderHourItem}
-        keyExtractor={(item) => item.key}
         showsVerticalScrollIndicator={false}
         snapToInterval={50}
         initialScrollIndex={selectedValue ? parseInt(selectedValue) + 24 : 0}
@@ -26,7 +23,6 @@ export default function TimePicker({
       <FlatList
         data={minutesSecondsData}
         renderItem={renderMinuteSecondItem}
-        keyExtractor={(item) => item.key}
         showsVerticalScrollIndicator={false}
         snapToInterval={50}
         initialScrollIndex={selectedValue ? parseInt(selectedValue) + 30 : 0}
@@ -35,7 +31,6 @@ export default function TimePicker({
       <FlatList
         data={minutesSecondsData}
         renderItem={renderSecondItem}
-        keyExtractor={(item) => item.key}
         showsVerticalScrollIndicator={false}
         snapToInterval={50}
         initialScrollIndex={selectedValue ? parseInt(selectedValue) + 30 : 0}

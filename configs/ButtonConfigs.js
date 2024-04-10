@@ -14,6 +14,12 @@ export const inputButtons = [
     bgColor: Colors.LIGHT,
     iconColor: Colors.DARK,
   },
+  // {
+  //   name: "edit",
+  //   icon: "clock-edit-outline",
+  //   bgColor: Colors.GREEN,
+  //   iconColor: Colors.DARK,
+  // },
   {
     name: "addToActiveTimer",
     icon: "play",

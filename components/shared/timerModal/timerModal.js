@@ -41,6 +41,7 @@ export default function TimerModal({
         value: timerValue,
       };
       dispatch(addSavedTimer(newTimer));
+      alert(`${newTimer.name} saved!`);
       modalToggler();
     } else {
       alert("Timer value must be at least 00:00:01");
@@ -56,6 +57,7 @@ export default function TimerModal({
         value: timerValue,
       };
       dispatch(addToActiveTimer(newTimer));
+      alert(`${newTimer.name} added to Active Timer`);
       modalToggler();
     } else {
       alert("Timer value must be at least 00:00:01");
@@ -71,6 +73,7 @@ export default function TimerModal({
         key: savedTimerDetailKey,
       };
       dispatch(editSavedTimer(savedTimerDetailKey, updatedTimer));
+      alert(`${updatedTimer.name} updated.`);
       modalToggler();
     } else {
       alert("Timer value must be at least 00:00:01");
@@ -93,7 +96,6 @@ export default function TimerModal({
   const handleInputChange = (text) => {
     setInputValue(text);
   };
-  
 
   const selectedHour = (hourValue) => {
     setHour(hourValue);
@@ -169,11 +171,12 @@ export default function TimerModal({
               bgColor={item.bgColor}
               key={index}
               size={50}
-              event={savedTimerDetail ? "edit" : item.name && item.name}
+              event={item.name && item.name}
               handleSaveTimer={handleSaveTimer}
               handleAddtoActiveTimer={handleAddtoActiveTimer}
               handleUpdateTimer={handleUpdateTimer}
               savedTimerKey={savedTimerDetailKey}
+              savedTimerDetail={savedTimerDetail}
             >
               <MaterialCommunityIcons
                 name={item.icon}
