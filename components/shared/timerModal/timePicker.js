@@ -19,7 +19,7 @@ export default function TimePicker({
         snapToInterval={50}
         initialScrollIndex={selectedValue ? parseInt(selectedValue) + 24 : 0}
       />
-      <Text style={styles.timeSeperator}>:</Text>
+      {/* <Text style={styles.timeSeperator}>:</Text> */}
       <FlatList
         data={minutesSecondsData}
         renderItem={renderMinuteSecondItem}
@@ -27,7 +27,7 @@ export default function TimePicker({
         snapToInterval={50}
         initialScrollIndex={selectedValue ? parseInt(selectedValue) + 30 : 0}
       />
-      <Text style={styles.timeSeperator}>:</Text>
+      {/* <Text style={styles.timeSeperator}>:</Text> */}
       <FlatList
         data={minutesSecondsData}
         renderItem={renderSecondItem}

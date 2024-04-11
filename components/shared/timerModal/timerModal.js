@@ -132,7 +132,7 @@ export default function TimerModal({
     const selectedHourValue = selectedHour();
     return (
       <Text
-        style={[styles.item, item === selectedHourValue && { color: Colors.LIGHT }]}
+        style={[styles.item, item === selectedHourValue && { color: Colors.LIGHT, fontFamily: 'Regular' }]}
         onPress={() => selectedHour(item)}
       >
         {item}
@@ -147,7 +147,7 @@ export default function TimerModal({
     const selectedMinuteValue = selectedMinute()
     return (
       <Text
-        style={[styles.item, item === selectedMinuteValue && { color: Colors.LIGHT }]}
+        style={[styles.item, item === selectedMinuteValue && { color: Colors.LIGHT, fontFamily: 'Regular'}]}
         onPress={() => selectedMinute(item)}
       >
         {item}
@@ -161,7 +161,7 @@ export default function TimerModal({
     const selectedSecondValue = selectedSecond()
     return (
       <Text
-        style={[styles.item, item === selectedSecondValue && { color: Colors.LIGHT }]}
+        style={[styles.item, item === selectedSecondValue && { color: Colors.LIGHT, fontFamily: 'Regular' }]}
         onPress={() => selectedSecond(item)}
       >
         {item}
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
   item: {
     textAlign: "center",
     fontSize: 18,
-    fontFamily: "Light",
+    fontFamily: "ExtraLight",
     fontSize: 64,
     color: Colors.DARK_GRAY,
   },
