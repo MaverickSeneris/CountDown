@@ -103,42 +103,72 @@ export default function TimerModal({
   };
 
   const selectedHour = (hourValue) => {
-    setHour(hourValue);
+    if (hourValue !== undefined) {
+      setHour(hourValue);
+    } else {
+      return hour; // Return the selected hour value
+    }
   };
 
   const selectedMinute = (minuteValue) => {
-    setMinute(minuteValue);
+    if (minuteValue !== undefined) {
+      setMinute(minuteValue);
+    } else {
+      return minute; // Return the selected minute value
+    }
   };
-  const selectSecond = (secondValue) => {
-    setSecond(secondValue);
+  
+  const selectedSecond = (secondValue) => {
+    if (secondValue !== undefined) {
+      setSecond(secondValue);
+    } else {
+      return second; // Return the selected second value
+    }
   };
 
-  const renderHourItem = ({ item }) => (
-    <Text
-      style={[styles.item, item === selectedHour && { color: Colors.LIGHT }]}
-      onPress={() => selectedHour(item)}
-    >
-      {item}
-    </Text>
-  );
-
-  const renderMinuteSecondItem = ({ item }) => (
-    <Text
-      style={[styles.item, item === selectedMinute && { color: Colors.LIGHT }]}
-      onPress={() => selectedMinute(item)}
-    >
-      {item}
-    </Text>
-  );
-
-  const renderSecondItem = ({ item }) => (
-    <Text
-      style={[styles.item, item === selectSecond && { color: Colors.LIGHT }]}
-      onPress={() => selectSecond(item)}
-    >
-      {item}
-    </Text>
-  );
+  const renderHourItem = ({ item }) => {
+    // console.log('selectedHour:', selectedHour);
+    // console.log('item:', item);
+    const selectedHourValue = selectedHour();
+    return (
+      <Text
+        style={[styles.item, item === selectedHourValue && { color: Colors.LIGHT }]}
+        onPress={() => selectedHour(item)}
+      >
+        {item}
+      </Text>
+    );
+    
+  };
+  
+  const renderMinuteSecondItem = ({ item }) => {
+    // console.log('selectedMinute:', selectedMinute);
+    // console.log('item:', item);
+    const selectedMinuteValue = selectedMinute()
+    return (
+      <Text
+        style={[styles.item, item === selectedMinuteValue && { color: Colors.LIGHT }]}
+        onPress={() => selectedMinute(item)}
+      >
+        {item}
+      </Text>
+    );
+  };
+  
+  const renderSecondItem = ({ item }) => {
+    // console.log('selectSecond:', selectSecond);
+    // console.log('item:', item);
+    const selectedSecondValue = selectedSecond()
+    return (
+      <Text
+        style={[styles.item, item === selectedSecondValue && { color: Colors.LIGHT }]}
+        onPress={() => selectedSecond(item)}
+      >
+        {item}
+      </Text>
+    );
+  };
+  
 
   return (
     <View style={styles.content}>
@@ -167,7 +197,7 @@ export default function TimerModal({
         minutesSecondsData={minutesSecondsData}
         selectedHour={selectedHour}
         selectedMinute={selectedMinute}
-        selectSecond={selectSecond}
+        selectSecond={selectedSecond}
       />
       <View style={styles.buttonContainer}>
         {inputButtons.map((item, index) => {
