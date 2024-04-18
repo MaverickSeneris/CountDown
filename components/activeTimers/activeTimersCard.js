@@ -35,14 +35,40 @@ export default ActiveTimersCard = ({ item }) => {
   const buttonControls = generateButtonControls(isRunning);
   const dispatch = useDispatch();
 
-  async function playSound() {
-    const soundObject = new Audio.Sound();
+  let soundObject;
+
+async function setupAudio() {
+    soundObject = new Audio.Sound();
     try {
         await soundObject.loadAsync(require('../../assets/casio_hour_chime.mp3'));
+        // Set looping to true to repeat the audio
+        await soundObject.setIsLoopingAsync(true);
+    } catch (error) {
+        console.log('Error loading sound:', error);
+    }
+}
+
+async function playSound() {
+    if (!soundObject) {
+        await setupAudio();
+    }
+
+    try {
         await soundObject.playAsync();
-        console.log("alarm activated")
+        // Stop the sound after 10 seconds
+        setTimeout(stopSound, 10000); // 10000 milliseconds = 10 seconds
     } catch (error) {
         console.log('Error playing sound:', error);
+    }
+}
+
+async function stopSound() {
+    if (soundObject) {
+        try {
+            await soundObject.stopAsync();
+        } catch (error) {
+            console.log('Error stopping sound:', error);
+        }
     }
 }
 
@@ -56,6 +82,7 @@ export default ActiveTimersCard = ({ item }) => {
             setIsRunning(false);
             console.log(`${item.name} has elapsed, resetting`);
             playSound()
+            stopSound()
             return timeStringToSeconds(item.value);
           }
           return prevSeconds - 1;
