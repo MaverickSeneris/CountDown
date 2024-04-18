@@ -24,10 +24,6 @@ export default function PresetTimers({ item, handleSelectTimer }) {
     handleSelectTimer(item.key)
     alert(`${item.name} added to Active Timers.`)
   };
-  // const handleDeleteSavedTimer = () => {
-  //   dispatch(deleteSavedTimer(item.key));
-  //   alert(`${item.name} deleted.`)
-  // };
   const handleDeleteSavedTimer = () => {
     // Show confirmation alert
     Alert.alert(

@@ -8,6 +8,7 @@ import { deleteActiveTimer } from "../../redux/actions/actions";
 import { useDispatch } from "react-redux";
 import ActiveTimersDetail from "./activeTimersDetail";
 import {generateButtonControls} from "../../configs/ButtonConfigs"
+import { Audio } from 'expo-av';
 
 const timeStringToSeconds = (timeString) => {
   const [hours, minutes, seconds] = timeString.split(":").map(Number);
@@ -34,6 +35,17 @@ export default ActiveTimersCard = ({ item }) => {
   const buttonControls = generateButtonControls(isRunning);
   const dispatch = useDispatch();
 
+  async function playSound() {
+    const soundObject = new Audio.Sound();
+    try {
+        await soundObject.loadAsync(require('../../assets/casio_hour_chime.mp3'));
+        await soundObject.playAsync();
+        console.log("alarm activated")
+    } catch (error) {
+        console.log('Error playing sound:', error);
+    }
+}
+
   useEffect(() => {
     if (isRunning) {
       timerInterval.current = setInterval(() => {
@@ -43,6 +55,7 @@ export default ActiveTimersCard = ({ item }) => {
             clearInterval(timerInterval.current);
             setIsRunning(false);
             console.log(`${item.name} has elapsed, resetting`);
+            playSound()
             return timeStringToSeconds(item.value);
           }
           return prevSeconds - 1;
