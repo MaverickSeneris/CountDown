@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
+    "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-native-community/datetimepicker": "^7.6.3",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
     "@reduxjs/toolkit": "^2.2.2",
     "expo": "~50.0.14",
+    "expo-av": "~13.10.5",
     "expo-font": "~11.10.3",
     "expo-splash-screen": "~0.26.4",
     "expo-status-bar": "~1.11.1",
@@ -25,7 +27,7 @@
     "react-native-swipeable": "^0.6.0",
     "react-redux": "^9.1.0",
     "redux": "^5.0.1",
-    "expo-av": "~13.10.5"
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

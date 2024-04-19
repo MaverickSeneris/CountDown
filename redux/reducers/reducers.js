@@ -1,4 +1,7 @@
 import { combineReducers } from "redux";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {persistReducer, persistStore} from "redux-persist"
+
 
 const initialState = {
   savedTimers: [
@@ -60,6 +63,15 @@ const rootReducer = (state = initialState, action) => {
   }
 };
 
+const persistConfig = {
+  key: "root",
+  storage: AsyncStorage
+}
+
+// export const persistor = persistStore(rootReducer)
+
 export default combineReducers({
-  rootReducer,
+  rootReducer: persistReducer(persistConfig, rootReducer)
 });
+
+
