@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Platform } from "react-native";
 import React from "react";
 import { Colors } from "../../styles/theme/Colors";
 import Header from "../shared/header";
@@ -79,14 +79,14 @@ const styles = StyleSheet.create({
     fontSize: 50,
   },
   countDownTime: {
-    marginVertical: 200,
+    marginVertical: Platform.OS === "ios" ? 200 : 150,
     justifyContent: "center",
     alignItems: "center",
   },
   value: {
     color: Colors.LIGHT,
     fontFamily: "Light",
-    fontSize: 100,
+    fontSize: Platform.OS === "ios" ? 100 : 80,
   },
   buttonContainer: {
     flexDirection: "row",

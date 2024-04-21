@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from "react-native";
 import { Colors } from "../styles/theme/Colors";
 
 export const CustomTabBar = ({ state, descriptors, navigation }) => {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontFamily: "Solid",
-    fontSize: 18,
+    fontSize: Platform.OS === "ios" ? 18 : 14,
     width: 50,
   },
 });
