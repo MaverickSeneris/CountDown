@@ -10,7 +10,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import TimerModal from "../components/shared/timerModal/timerModal";
 
 export default function ActiveTimers({navigation}) {
-  const activeTimers = useSelector((state) => state.rootReducer.activeTimers);
+  const activeTimers = useSelector((state) => state.persistedReducer.activeTimers);
   const [modal, setModal] = useState(false);
   const modalToggler = () => {
     setModal(!modal);

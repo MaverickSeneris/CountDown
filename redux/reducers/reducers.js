@@ -68,10 +68,10 @@ const persistConfig = {
   storage: AsyncStorage
 }
 
-// export const persistor = persistStore(rootReducer)
-
 export default combineReducers({
-  rootReducer: persistReducer(persistConfig, rootReducer)
+  persistedReducer: persistReducer(persistConfig, rootReducer)
 });
+
+
 
 

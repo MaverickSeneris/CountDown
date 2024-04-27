@@ -19,7 +19,7 @@ import EmptyState from "../components/shared/emptyState";
 export default function SavedTimers() {
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
-  const savedTimers = useSelector((state) => state.rootReducer.savedTimers);
+  const savedTimers = useSelector((state) => state.persistedReducer.savedTimers);
 
   const handleSelectTimer = (timerKey) => {
     const selectedTimer = savedTimers.find((timer) => timer.key === timerKey);
