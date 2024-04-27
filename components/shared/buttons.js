@@ -1,5 +1,8 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addSavedTimer } from "../../redux/actions/actions";
+
 
 export default function Buttons({
   children,
@@ -16,7 +19,14 @@ export default function Buttons({
   handleStop,
   event,
   size,
+  hour,
+  minute,
+  second,
+  modalToggler,
+  inputValue
 }) {
+  const dispatch = useDispatch()
+
   const handlePress = () => {
     switch (event) {
       case "add":
@@ -31,7 +41,13 @@ export default function Buttons({
       case "save":
         return savedTimerDetail
           ? handleUpdateTimer(savedTimerKey)
-          : handleSaveTimer();
+          : handleSaveTimer(hour,
+            minute,
+            second,
+            inputValue,
+            addSavedTimer,
+            dispatch,
+            modalToggler);
       case "addToActiveTimer":
         return handleAddtoActiveTimer();
       case "undo":

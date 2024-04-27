@@ -9,17 +9,19 @@ import { inputButtons } from "../../../configs/ButtonConfigs.js";
 import { Colors } from "../../../styles/theme/Colors.js";
 import { useDispatch } from "react-redux";
 import {
-  addSavedTimer,
   addToActiveTimer,
   editSavedTimer,
 } from "../../../redux/actions/actions.js";
-import getLoopingData from "../../../utils/timeLooping.js";
+import {
+  getLoopingData,
+  handleSaveTimer,
+  handleAddtoActiveTimer,
+} from "../../../lib/utils.ts";
 
 export default function TimerModal({
   modalToggler,
   savedTimerDetail,
   savedTimerDetailHeader,
-  savedTimerDetailValue,
   savedTimerDetailName,
   savedTimerDetailKey,
 }) {
@@ -31,22 +33,6 @@ export default function TimerModal({
   const minutesSecondsData = getLoopingData(60);
 
   const dispatch = useDispatch();
-
-  const handleSaveTimer = () => {
-    const timerValue = `${hour}:${minute}:${second}`;
-    if (validateTimer(timerValue)) {
-      const newTimer = {
-        key: Math.random().toString(),
-        name: inputValue,
-        value: timerValue,
-      };
-      dispatch(addSavedTimer(newTimer));
-      alert(`${newTimer.name} saved!`);
-      modalToggler();
-    } else {
-      alert("Timer value must be at least 00:00:01");
-    }
-  };
 
   const handleAddtoActiveTimer = () => {
     const timerValue = `${hour}:${minute}:${second}`;
@@ -81,9 +67,9 @@ export default function TimerModal({
   };
 
   const handleUndoTimerValues = () => {
-    setInputValue("")
-    alert("Timer reset.")
-  }
+    setInputValue("");
+    alert("Timer reset.");
+  };
 
   const validateTimer = (timerValue) => {
     const parts = timerValue.split(":").map((part) => parseInt(part));
@@ -117,7 +103,7 @@ export default function TimerModal({
       return minute; // Return the selected minute value
     }
   };
-  
+
   const selectedSecond = (secondValue) => {
     if (secondValue !== undefined) {
       setSecond(secondValue);
@@ -127,48 +113,58 @@ export default function TimerModal({
   };
 
   const renderHourItem = ({ item }) => {
-    // console.log('selectedHour:', selectedHour);
-    // console.log('item:', item);
     const selectedHourValue = selectedHour();
     return (
       <Text
-        style={[styles.item, item === selectedHourValue && { color: Colors.LIGHT, fontFamily: 'Regular' }]}
+        style={[
+          styles.item,
+          item === selectedHourValue && {
+            color: Colors.LIGHT,
+            fontFamily: "Regular",
+          },
+        ]}
         onPress={() => selectedHour(item)}
       >
         {item}
       </Text>
     );
-    
   };
-  
+
   const renderMinuteSecondItem = ({ item }) => {
-    // console.log('selectedMinute:', selectedMinute);
-    // console.log('item:', item);
-    const selectedMinuteValue = selectedMinute()
+    const selectedMinuteValue = selectedMinute();
     return (
       <Text
-        style={[styles.item, item === selectedMinuteValue && { color: Colors.LIGHT, fontFamily: 'Regular'}]}
+        style={[
+          styles.item,
+          item === selectedMinuteValue && {
+            color: Colors.LIGHT,
+            fontFamily: "Regular",
+          },
+        ]}
         onPress={() => selectedMinute(item)}
       >
         {item}
       </Text>
     );
   };
-  
+
   const renderSecondItem = ({ item }) => {
-    // console.log('selectSecond:', selectSecond);
-    // console.log('item:', item);
-    const selectedSecondValue = selectedSecond()
+    const selectedSecondValue = selectedSecond();
     return (
       <Text
-        style={[styles.item, item === selectedSecondValue && { color: Colors.LIGHT, fontFamily: 'Regular' }]}
+        style={[
+          styles.item,
+          item === selectedSecondValue && {
+            color: Colors.LIGHT,
+            fontFamily: "Regular",
+          },
+        ]}
         onPress={() => selectedSecond(item)}
       >
         {item}
       </Text>
     );
   };
-  
 
   return (
     <View style={styles.content}>
@@ -213,6 +209,11 @@ export default function TimerModal({
               handleUndoTimerValues={handleUndoTimerValues}
               savedTimerKey={savedTimerDetailKey}
               savedTimerDetail={savedTimerDetail}
+              hour={hour}
+              minute={minute}
+              second={second}
+              modalToggler={modalToggler}
+              inputValue={inputValue}
             >
               <MaterialCommunityIcons
                 name={item.icon}

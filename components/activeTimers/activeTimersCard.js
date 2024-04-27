@@ -70,8 +70,8 @@ export default ActiveTimersCard = ({ item }) => {
 
     try {
       await soundObject.playAsync();
-      // Stop the sound after 10 seconds
-      setTimeout(stopSound, 10000); // 10000 milliseconds = 10 seconds
+      // Stop the sound after 5 seconds
+      setTimeout(stopSound, 5000); // 5000 milliseconds = 5 seconds
     } catch (error) {
       console.log("Error playing sound:", error);
     }
