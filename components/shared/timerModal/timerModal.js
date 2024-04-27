@@ -9,7 +9,6 @@ import { inputButtons } from "../../../configs/ButtonConfigs.js";
 import { Colors } from "../../../styles/theme/Colors.js";
 import { useDispatch } from "react-redux";
 import {
-  addToActiveTimer,
   editSavedTimer,
 } from "../../../redux/actions/actions.js";
 import {
@@ -33,22 +32,6 @@ export default function TimerModal({
   const minutesSecondsData = getLoopingData(60);
 
   const dispatch = useDispatch();
-
-  const handleAddtoActiveTimer = () => {
-    const timerValue = `${hour}:${minute}:${second}`;
-    if (validateTimer(timerValue)) {
-      const newTimer = {
-        key: Math.random().toString(),
-        name: inputValue,
-        value: timerValue,
-      };
-      dispatch(addToActiveTimer(newTimer));
-      alert(`${newTimer.name} added to Active Timer`);
-      modalToggler();
-    } else {
-      alert("Timer value must be at least 00:00:01");
-    }
-  };
 
   const handleUpdateTimer = () => {
     const timerValue = `${hour}:${minute}:${second}`;
